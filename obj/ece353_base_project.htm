@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\obj\ece353_base_project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\obj\ece353_base_project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun May 03 01:11:50 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun May 03 02:04:42 2020
 <BR><P>
 <H3>Maximum Stack Usage =        112 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -294,9 +294,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[c6]"></a>erase_car1</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, project_interrupts.o(.text), UNUSED)
-
-<P><STRONG><a name="[7f]"></a>ps2_get_direction</STRONG> (Thumb, 80 bytes, Stack size 0 bytes, project_interrupts.o(.text))
+<P><STRONG><a name="[80]"></a>ps2_get_direction</STRONG> (Thumb, 80 bytes, Stack size 0 bytes, project_interrupts.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[1a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC0SS2_Handler
 </UL>
 
@@ -308,10 +306,11 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c123.o(RESET)
 </UL>
-<P><STRONG><a name="[2d]"></a>TIMER3A_Handler</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, project_interrupts.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = TIMER3A_Handler &rArr; move_image
+<P><STRONG><a name="[2d]"></a>TIMER3A_Handler</STRONG> (Thumb, 120 bytes, Stack size 16 bytes, project_interrupts.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = TIMER3A_Handler &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;move_image
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;contact_edge
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c123.o(RESET)
@@ -322,30 +321,30 @@ Global Symbols
 <P><STRONG><a name="[1a]"></a>ADC0SS2_Handler</STRONG> (Thumb, 44 bytes, Stack size 4 bytes, project_interrupts.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = ADC0SS2_Handler
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ps2_get_direction
+<BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ps2_get_direction
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c123.o(RESET)
 </UL>
-<P><STRONG><a name="[85]"></a>ps2_initialize_adc</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, ps2-new.o(.text))
+<P><STRONG><a name="[86]"></a>ps2_initialize_adc</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, ps2-new.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = ps2_initialize_adc &rArr; ps2_configure_adc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ps2_configure_adc
+<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ps2_configure_adc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ps2_initialize
+<BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ps2_initialize
 </UL>
 
-<P><STRONG><a name="[87]"></a>ps2_initialize</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, ps2-new.o(.text))
+<P><STRONG><a name="[88]"></a>ps2_initialize</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, ps2-new.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = ps2_initialize &rArr; initialize_adc_gpio_pins &rArr; gpio_config_enable_input
 </UL>
-<BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ps2_initialize_adc
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_adc_gpio_pins
+<BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ps2_initialize_adc
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_adc_gpio_pins
 </UL>
-<BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_hardware
+<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_hardware
 </UL>
 
-<P><STRONG><a name="[c7]"></a>ps2_get_x</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, ps2-new.o(.text), UNUSED)
+<P><STRONG><a name="[c6]"></a>ps2_get_x</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, ps2-new.o(.text), UNUSED)
 
-<P><STRONG><a name="[c8]"></a>ps2_get_y</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, ps2-new.o(.text), UNUSED)
+<P><STRONG><a name="[c7]"></a>ps2_get_y</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, ps2-new.o(.text), UNUSED)
 
 <P><STRONG><a name="[7d]"></a>contact_edge</STRONG> (Thumb, 202 bytes, Stack size 24 bytes, hw3.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = contact_edge
@@ -367,35 +366,35 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hw3_main
 </UL>
 
-<P><STRONG><a name="[88]"></a>init_hardware</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, hw3.o(.text))
+<P><STRONG><a name="[89]"></a>init_hardware</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, hw3.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = init_hardware &rArr; lcd_clear_screen &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_screen
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_gpio
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gp_timer_config_32
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ps2_initialize
+<BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_screen
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_gpio
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gp_timer_config_32
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ps2_initialize
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hw3_main
 </UL>
 
-<P><STRONG><a name="[7c]"></a>hw3_main</STRONG> (Thumb, 250 bytes, Stack size 24 bytes, hw3.o(.text))
+<P><STRONG><a name="[7c]"></a>hw3_main</STRONG> (Thumb, 402 bytes, Stack size 24 bytes, hw3.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = hw3_main &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_hardware
+<BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_hardware
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_game_over
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[c9]"></a>gpio_get_irq_num</STRONG> (Thumb, 74 bytes, Stack size 0 bytes, gpio_port.o(.text), UNUSED)
+<P><STRONG><a name="[c8]"></a>gpio_get_irq_num</STRONG> (Thumb, 74 bytes, Stack size 0 bytes, gpio_port.o(.text), UNUSED)
 
-<P><STRONG><a name="[81]"></a>gpio_enable_port</STRONG> (Thumb, 156 bytes, Stack size 8 bytes, gpio_port.o(.text))
+<P><STRONG><a name="[82]"></a>gpio_enable_port</STRONG> (Thumb, 156 bytes, Stack size 8 bytes, gpio_port.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = gpio_enable_port
 </UL>
-<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_gpio
-<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_adc_gpio_pins
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_gpio
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_adc_gpio_pins
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_serial_debug
 </UL>
 
@@ -404,7 +403,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;verify_base_addr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_gpio
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_gpio
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_serial_debug
 </UL>
 
@@ -413,15 +412,15 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;verify_base_addr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_gpio
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_gpio
 </UL>
 
-<P><STRONG><a name="[82]"></a>gpio_config_enable_input</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, gpio_port.o(.text))
+<P><STRONG><a name="[83]"></a>gpio_config_enable_input</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, gpio_port.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = gpio_config_enable_input
 </UL>
 <BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;verify_base_addr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_adc_gpio_pins
+<BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_adc_gpio_pins
 </UL>
 
 <P><STRONG><a name="[92]"></a>gpio_config_enable_pullup</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, gpio_port.o(.text))
@@ -429,27 +428,27 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;verify_base_addr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_gpio
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_gpio
 </UL>
 
 <P><STRONG><a name="[93]"></a>gpio_config_enable_pulldown</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, gpio_port.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;verify_base_addr
 </UL>
 
-<P><STRONG><a name="[83]"></a>gpio_config_analog_enable</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, gpio_port.o(.text))
+<P><STRONG><a name="[84]"></a>gpio_config_analog_enable</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, gpio_port.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = gpio_config_analog_enable
 </UL>
 <BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;verify_base_addr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_adc_gpio_pins
+<BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_adc_gpio_pins
 </UL>
 
-<P><STRONG><a name="[84]"></a>gpio_config_alternate_function</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, gpio_port.o(.text))
+<P><STRONG><a name="[85]"></a>gpio_config_alternate_function</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, gpio_port.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = gpio_config_alternate_function
 </UL>
 <BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;verify_base_addr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_adc_gpio_pins
+<BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_adc_gpio_pins
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_serial_debug
 </UL>
 
@@ -499,21 +498,21 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[9c]"></a>timer_get_irq_num</STRONG> (Thumb, 74 bytes, Stack size 0 bytes, timers.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gp_timer_config_32
+<BR><BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gp_timer_config_32
 </UL>
 
 <P><STRONG><a name="[99]"></a>gp_timer_wait</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, timers.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;verify_base_addr
 </UL>
 
-<P><STRONG><a name="[8c]"></a>gp_timer_config_32</STRONG> (Thumb, 252 bytes, Stack size 40 bytes, timers.o(.text))
+<P><STRONG><a name="[8d]"></a>gp_timer_config_32</STRONG> (Thumb, 252 bytes, Stack size 40 bytes, timers.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = gp_timer_config_32 &rArr; get_clock_masks
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer_get_irq_num
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_clock_masks
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;verify_base_addr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_hardware
+<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_hardware
 </UL>
 
 <P><STRONG><a name="[9e]"></a>verify_uart_base</STRONG> (Thumb, 54 bytes, Stack size 0 bytes, uart.o(.text), UNUSED)
@@ -561,7 +560,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[ae]"></a>delayms</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, lcd.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_screen
+<BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_screen
 </UL>
 
 <P><STRONG><a name="[a5]"></a>lcd_set_pos</STRONG> (Thumb, 58 bytes, Stack size 24 bytes, lcd.o(.text))
@@ -576,17 +575,17 @@ Global Symbols
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_rectangle_centered
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_rectangle
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_box
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
 </UL>
 
-<P><STRONG><a name="[8b]"></a>lcd_clear_screen</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, lcd.o(.text))
+<P><STRONG><a name="[8c]"></a>lcd_clear_screen</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = lcd_clear_screen &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_set_pos
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data_u16
 </UL>
-<BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_hardware
+<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_hardware
 </UL>
 
 <P><STRONG><a name="[a8]"></a>lcd_draw_box</STRONG> (Thumb, 138 bytes, Stack size 40 bytes, lcd.o(.text), UNUSED)
@@ -617,13 +616,14 @@ Global Symbols
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data_u16
 </UL>
 
-<P><STRONG><a name="[8d]"></a>lcd_draw_image</STRONG> (Thumb, 242 bytes, Stack size 56 bytes, lcd.o(.text))
+<P><STRONG><a name="[7f]"></a>lcd_draw_image</STRONG> (Thumb, 242 bytes, Stack size 56 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_set_pos
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data_u16
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hw3_main
+<BR>[Called By]<UL><LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER3A_Handler
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hw3_main
 </UL>
 
 <P><STRONG><a name="[ad]"></a>lcd_draw_color_image</STRONG> (Thumb, 142 bytes, Stack size 56 bytes, lcd.o(.text), UNUSED)
@@ -631,27 +631,27 @@ Global Symbols
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data_u16
 </UL>
 
-<P><STRONG><a name="[89]"></a>lcd_config_gpio</STRONG> (Thumb, 190 bytes, Stack size 8 bytes, lcd.o(.text))
+<P><STRONG><a name="[8a]"></a>lcd_config_gpio</STRONG> (Thumb, 190 bytes, Stack size 8 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = lcd_config_gpio &rArr; gpio_config_enable_pullup
 </UL>
 <BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_enable_pullup
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_enable_output
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_digital_enable
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_enable_port
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_enable_port
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_screen
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_hardware
+<BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_screen
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_hardware
 </UL>
 
-<P><STRONG><a name="[8a]"></a>lcd_config_screen</STRONG> (Thumb, 548 bytes, Stack size 8 bytes, lcd.o(.text))
+<P><STRONG><a name="[8b]"></a>lcd_config_screen</STRONG> (Thumb, 548 bytes, Stack size 8 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = lcd_config_screen &rArr; lcd_config_gpio &rArr; gpio_config_enable_pullup
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayms
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data_u8
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_cmd_u8
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_gpio
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_gpio
 </UL>
-<BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_hardware
+<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_hardware
 </UL>
 
 <P><STRONG><a name="[b0]"></a>lcd_draw_line</STRONG> (Thumb, 200 bytes, Stack size 48 bytes, lcd.o(.text), UNUSED)
@@ -702,8 +702,8 @@ Global Symbols
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pc_buffer_init
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_port_control
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_digital_enable
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_enable_port
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_alternate_function
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_enable_port
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_alternate_function
 </UL>
 
 <P><STRONG><a name="[f]"></a>UART0_Handler</STRONG> (Thumb, 136 bytes, Stack size 24 bytes, serial_debug.o(.text))
@@ -1515,13 +1515,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_main_scatterload
 </UL>
 
-<P><STRONG><a name="[ca]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
+<P><STRONG><a name="[c9]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
 
-<P><STRONG><a name="[cb]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
+<P><STRONG><a name="[ca]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
 
-<P><STRONG><a name="[cc]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
+<P><STRONG><a name="[cb]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
 
-<P><STRONG><a name="[cd]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
+<P><STRONG><a name="[cc]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
 <P><STRONG><a name="[98]"></a>malloc</STRONG> (Thumb, 92 bytes, Stack size 20 bytes, malloc.o(i.malloc), UNUSED)
 <BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pc_buffer_init
@@ -1530,21 +1530,21 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[80]"></a>initialize_adc_gpio_pins</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, ps2-new.o(.text))
+<P><STRONG><a name="[81]"></a>initialize_adc_gpio_pins</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, ps2-new.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = initialize_adc_gpio_pins &rArr; gpio_config_enable_input
 </UL>
-<BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_enable_port
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_enable_input
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_analog_enable
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_alternate_function
+<BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_enable_port
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_enable_input
+<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_analog_enable
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_alternate_function
 </UL>
-<BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ps2_initialize
+<BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ps2_initialize
 </UL>
 
-<P><STRONG><a name="[86]"></a>ps2_configure_adc</STRONG> (Thumb, 118 bytes, Stack size 8 bytes, ps2-new.o(.text))
+<P><STRONG><a name="[87]"></a>ps2_configure_adc</STRONG> (Thumb, 118 bytes, Stack size 8 bytes, ps2-new.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = ps2_configure_adc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ps2_initialize_adc
+<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ps2_initialize_adc
 </UL>
 
 <P><STRONG><a name="[90]"></a>verify_base_addr</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, gpio_port.o(.text))
@@ -1555,29 +1555,29 @@ Local Symbols
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_enable_pullup
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_enable_output
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_digital_enable
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_enable_input
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_analog_enable
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_alternate_function
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_enable_input
+<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_analog_enable
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_config_alternate_function
 </UL>
 
 <P><STRONG><a name="[9a]"></a>verify_base_addr</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, timers.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gp_timer_wait
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gp_timer_config_32
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gp_timer_config_32
 </UL>
 
 <P><STRONG><a name="[9b]"></a>get_clock_masks</STRONG> (Thumb, 106 bytes, Stack size 8 bytes, timers.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = get_clock_masks
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gp_timer_config_32
+<BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gp_timer_config_32
 </UL>
 
 <P><STRONG><a name="[a6]"></a>lcd_write_cmd_u8</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, lcd.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_set_pos
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_screen
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_screen
 </UL>
 
 <P><STRONG><a name="[af]"></a>lcd_write_data_u8</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, lcd.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_screen
+<BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_config_screen
 </UL>
 
 <P><STRONG><a name="[a7]"></a>lcd_write_data_u16</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, lcd.o(.text))
@@ -1590,8 +1590,8 @@ Local Symbols
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_rectangle
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_box
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_set_pos
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
 </UL>
 
 <P><STRONG><a name="[be]"></a>getOscClk</STRONG> (Thumb, 182 bytes, Stack size 0 bytes, system_tm4c123.o(.text), UNUSED)

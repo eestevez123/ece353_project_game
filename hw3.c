@@ -1,9 +1,9 @@
 #include "hw3.h"
 
-volatile uint16_t SHIP_X_COORD = 190;
-volatile uint16_t SHIP_Y_COORD = 100;
+volatile uint16_t SHIP_X_COORD = 0;
+volatile uint16_t SHIP_Y_COORD = 200;
 volatile uint16_t INVADER_X_COORD = 50;
-volatile uint16_t INVADER_Y_COORD = 200;
+volatile uint16_t INVADER_Y_COORD = 100;
 volatile bool ALERT_SPACE_SHIP = true;
 volatile bool ALERT_INVADER = true;
 char STUDENT_NAME[] = "Eddie Estevez and Quinn Kleinschmidt";
@@ -224,7 +224,7 @@ void hw3_main(void)
     init_hardware();
 		
 		// Have game start at the Welcome Screen
-		 game_state = 0x0;
+		 game_state = 0x1;
 	
 		/* States for game_state
 					Welcome Screen = 0x0;
@@ -287,20 +287,28 @@ void hw3_main(void)
 							LCD_COLOR_RED,        // Foreground Color
 							LCD_COLOR_WHITE       // Background Color  
 							);
-									
 								
 							while((!game_over) | (!game_pause))
 							{
 							if(ALERT_SPACE_SHIP)
 							{
 								lcd_draw_image(
-								SHIP_X_COORD,            // X Center Point
-								space_shipWidthPixels,   // Image Horizontal Width
+								SHIP_X_COORD - 2,            // X Center Point
+								car1WidthPixels,   // Image Horizontal Width
 								SHIP_Y_COORD,            // Y Center Point
-								space_shipHeightPixels,  // Image Vertical Height
-								space_shipBitmaps,       // Image
-								LCD_COLOR_BLUE,          // Foreground Color
+								car1HeightPixels,  // Image Vertical Height
+								car1Bitmaps,       // Image
+								LCD_COLOR_BLACK,          // Foreground Color
 								LCD_COLOR_BLACK          // Background Color
+								);
+								lcd_draw_image(
+								SHIP_X_COORD,            // X Center Point
+								car1WidthPixels,   // Image Horizontal Width
+								SHIP_Y_COORD,            // Y Center Point
+								car1HeightPixels,  // Image Vertical Height
+								car1Bitmaps,       // Image
+								LCD_COLOR_BLACK,          // Foreground Color
+								LCD_COLOR_ORANGE          // Background Color
 								);
 
 
