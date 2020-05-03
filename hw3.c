@@ -482,20 +482,20 @@ void hw3_main(void)
 
 
 							game_over = check_game_over(
-												CAR21_X_COORD,
-												CAR21_Y_COORD,
-												car2HeightPixels,
-												car2WidthPixels,
+												VIRUS1_X_COORD,
+												VIRUS1_Y_COORD,
+												virus_detailHeightPixels,
+												virus_detailWidthPixels,
 												PLAYER_X_COORD,
 												PLAYER_Y_COORD,
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
 											game_over = check_game_over(
-												CAR22_X_COORD,
-												CAR22_Y_COORD,
-												car2HeightPixels,
-												car2WidthPixels,
+												VIRUS2_X_COORD,
+												VIRUS2_Y_COORD,
+												virus_detailHeightPixels,
+												virus_detailWidthPixels,
 												PLAYER_X_COORD,
 												PLAYER_Y_COORD,
 												invaderHeightPixels,
@@ -538,8 +538,47 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
+											game_over = check_game_over(
+												VIRUS1_X_COORD,
+												VIRUS1_Y_COORD,
+												virus_detailHeightPixels,
+												virus_detailWidthPixels,
+												PLAYER_X_COORD,
+												PLAYER_Y_COORD,
+												invaderHeightPixels,
+												invaderWidthPixels
+											);
+											game_over = check_game_over(
+												VIRUS2_X_COORD,
+												VIRUS2_Y_COORD,
+												virus_detailHeightPixels,
+												virus_detailWidthPixels,
+												PLAYER_X_COORD,
+												PLAYER_Y_COORD,
+												invaderHeightPixels,
+												invaderWidthPixels
+											);
+											game_over = check_game_over(
+												CAR21_X_COORD,
+												CAR21_Y_COORD,
+												car2HeightPixels,
+												car2WidthPixels,
+												PLAYER_X_COORD,
+												PLAYER_Y_COORD,
+												invaderHeightPixels,
+												invaderWidthPixels
+											);
+											game_over = check_game_over(
+												CAR22_X_COORD,
+												CAR22_Y_COORD,
+												car2HeightPixels,
+												car2WidthPixels,
+												PLAYER_X_COORD,
+												PLAYER_Y_COORD,
+												invaderHeightPixels,
+												invaderWidthPixels
+											);
 										}
-							
 							}
 							game_state = 2;
 							lcd_clear_screen(LCD_COLOR_BLACK);
