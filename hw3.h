@@ -16,12 +16,19 @@
 #include "ft6x06.h"
 
 
-extern volatile uint16_t SHIP_X_COORD;
-extern volatile uint16_t SHIP_Y_COORD;
-extern volatile uint16_t INVADER_X_COORD;
-extern volatile uint16_t INVADER_Y_COORD;
+extern volatile uint16_t CAR11_X_COORD;
+extern volatile uint16_t CAR11_Y_COORD;
+extern volatile uint16_t CAR12_X_COORD;
+extern volatile uint16_t CAR12_Y_COORD;
+extern volatile uint16_t CAR21_X_COORD;
+extern volatile uint16_t CAR21_Y_COORD;
+extern volatile uint16_t CAR22_X_COORD;
+extern volatile uint16_t CAR22_Y_COORD;
+extern volatile uint16_t PLAYER_X_COORD;
+extern volatile uint16_t PLAYER_Y_COORD;
 extern volatile bool ALERT_CAR;
-extern volatile bool ALERT_INVADER;
+extern volatile bool ALERT_TRUCK;
+extern volatile bool ALERT_PLAYER;
 extern char STUDENT_NAME[];
 
 typedef enum{

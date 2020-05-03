@@ -49,17 +49,47 @@ PS2_DIR_t ps2_get_direction(void)
 		return PS2_DIR = PS2_DIR_CENTER;
 	}
 }
+//*****************************************************************************
+// TIMER0 ISR is used to move car2
+//*****************************************************************************
+bool touch_edge1;
+bool touch_edge2;
 
+void TIMER0A_Handler(void)
+{	
+	touch_edge1 = contact_edge(PS2_DIR_RIGHT, CAR21_X_COORD -1 , CAR21_Y_COORD, car1HeightPixels, car1WidthPixels);
+	touch_edge2 = contact_edge(PS2_DIR_RIGHT, CAR22_X_COORD -1, CAR22_Y_COORD, car1HeightPixels, car1WidthPixels);
+	
+	// Let's check where move_count is at
+		// can it move? Let's move it if we can
+		if(!touch_edge1) {
+			CAR21_X_COORD++;
+			ALERT_TRUCK = true;
+		} 
+		else{
+		lcd_draw_rectangle_centered(220, 40, 240, 50, LCD_COLOR_BLACK);
+		CAR11_X_COORD = car1WidthPixels/2;
+	}
+		if(!touch_edge2) {
+			CAR22_X_COORD++;
+			ALERT_TRUCK = true;
+		} else{
+			lcd_draw_rectangle_centered(220, 40, 240, 50, LCD_COLOR_BLACK);
+		CAR12_X_COORD = car1WidthPixels/2;
+	}
+	// Clear the interrupt
+	TIMER0->ICR |= TIMER_ICR_TATOCINT; 
+}
 //*****************************************************************************
 // TIMER2 ISR is used to determine when to move the Invader
 //*****************************************************************************
 void TIMER2A_Handler(void)
 {	
 	// let's check if it's hitting an edge
-	if(!contact_edge(PS2_DIR, INVADER_X_COORD, INVADER_Y_COORD, invaderHeightPixels, invaderWidthPixels)){
+	if(!contact_edge(PS2_DIR, PLAYER_X_COORD, PLAYER_Y_COORD, invaderHeightPixels, invaderWidthPixels)){
 		// no edge is being hit, it's safe to move in the direction
-    move_image(PS2_DIR, &INVADER_X_COORD, &INVADER_Y_COORD, invaderHeightPixels, invaderWidthPixels);
-		ALERT_INVADER = true;
+    move_image(PS2_DIR, &PLAYER_X_COORD, &PLAYER_Y_COORD, invaderHeightPixels, invaderWidthPixels);
+		ALERT_PLAYER = true;
 	}
 	// Clear the interrupt
 	TIMER2->ICR |= TIMER_ICR_TATOCINT;
@@ -68,22 +98,31 @@ void TIMER2A_Handler(void)
 //*****************************************************************************
 // TIMER3 ISR is used to determine when to move the spaceship
 //*****************************************************************************
-bool touch_edge;
+bool touch_edge1;
+bool touch_edge2;
 
 void TIMER3A_Handler(void)
 {	
 	// Let's check if the ship has touched edge from where it is
-	touch_edge = contact_edge(PS2_DIR_RIGHT, SHIP_X_COORD, SHIP_Y_COORD, car1HeightPixels, car1WidthPixels);
+	touch_edge1 = contact_edge(PS2_DIR_RIGHT, CAR11_X_COORD -1 , CAR11_Y_COORD, car1HeightPixels, car1WidthPixels);
+	touch_edge2 = contact_edge(PS2_DIR_RIGHT, CAR12_X_COORD -1, CAR12_Y_COORD, car1HeightPixels, car1WidthPixels);
 	
 	// Let's check where move_count is at
 		// can it move? Let's move it if we can
-		if(!touch_edge) {
-			move_image(PS2_DIR_RIGHT, &SHIP_X_COORD, &SHIP_Y_COORD, car1HeightPixels, car1WidthPixels);
+		if(!touch_edge1) {
+			CAR11_X_COORD++;
 			ALERT_CAR = true;
 		} 
-	// if we can't move since move_count is 0 or an edge was hit, let's give it a new direction and move count
-	else{
-		SHIP_X_COORD = car1WidthPixels/2;
+		else{
+		lcd_draw_rectangle_centered(220, 40, 240, 50, LCD_COLOR_BLACK);
+		CAR11_X_COORD = car1WidthPixels/2;
+	}
+		if(!touch_edge2) {
+			CAR12_X_COORD++;
+			ALERT_CAR = true;
+		} else{
+			lcd_draw_rectangle_centered(220, 40, 240, 50, LCD_COLOR_BLACK);
+		CAR12_X_COORD = car1WidthPixels/2;
 	}
 	// Clear the interrupt
 	TIMER3->ICR |= TIMER_ICR_TATOCINT; 

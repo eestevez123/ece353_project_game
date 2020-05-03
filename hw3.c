@@ -2,12 +2,19 @@
 #include "hw3.h"
 
 
-volatile uint16_t SHIP_X_COORD = 16;
-volatile uint16_t SHIP_Y_COORD = 200;
-volatile uint16_t INVADER_X_COORD = 50;
-volatile uint16_t INVADER_Y_COORD = 100;
+volatile uint16_t CAR11_X_COORD = 16;
+volatile uint16_t CAR11_Y_COORD = 240;
+volatile uint16_t CAR12_X_COORD = 116;
+volatile uint16_t CAR12_Y_COORD = 240;
+volatile uint16_t CAR21_X_COORD = 26;
+volatile uint16_t CAR21_Y_COORD = 190;
+volatile uint16_t CAR22_X_COORD = 126;
+volatile uint16_t CAR22_Y_COORD = 190;
+volatile uint16_t PLAYER_X_COORD = 50;
+volatile uint16_t PLAYER_Y_COORD = 100;
 volatile bool ALERT_CAR = false;
-volatile bool ALERT_INVADER = true;
+volatile bool ALERT_TRUCK = false;
+volatile bool ALERT_PLAYER = true;
 char STUDENT_NAME[] = "Eddie Estevez and Quinn Kleinschmidt";
 
 uint8_t ft6x06_read_td_status(void);
@@ -164,12 +171,12 @@ Rectangle ship;				// Rectangle to help with boundary check of ship
 Rectangle invader;		// Rectangle to help with boundary check of invader
 
 bool check_game_over(
-        volatile uint16_t ship_x_coord, 
-        volatile uint16_t ship_y_coord, 
+        volatile uint16_t CAR11_X_COORD, 
+        volatile uint16_t CAR11_Y_COORD, 
         uint8_t ship_height, 
         uint8_t ship_width,
-        volatile uint16_t invader_x_coord, 
-        volatile uint16_t invader_y_coord, 
+        volatile uint16_t PLAYER_X_COORD, 
+        volatile uint16_t PLAYER_Y_COORD, 
         uint8_t invader_height, 
         uint8_t invader_width
 )
@@ -177,16 +184,16 @@ bool check_game_over(
 	// Let's make some rectangles to help us figure out the boundaries
 	
 	// First, the space ship
-	ship.top = ship_y_coord - (ship_height/2);
-	ship.bottom = ship_y_coord + (ship_height/2);
-	ship.left = ship_x_coord - (ship_width/2);
-	ship.right = ship_x_coord + (ship_width/2);
+	ship.top = CAR11_Y_COORD - (ship_height/2);
+	ship.bottom = CAR11_Y_COORD + (ship_height/2);
+	ship.left = CAR11_X_COORD - (ship_width/2);
+	ship.right = CAR11_X_COORD + (ship_width/2);
 	
 	// Second, the space invader
-	invader.top = invader_y_coord - (invader_height/2);
-	invader.bottom = invader_y_coord + (invader_height/2);
-	invader.left = invader_x_coord - (invader_width/2);
-	invader.right = invader_x_coord + (invader_width/2);
+	invader.top = PLAYER_Y_COORD - (invader_height/2);
+	invader.bottom = PLAYER_Y_COORD + (invader_height/2);
+	invader.left = PLAYER_X_COORD - (invader_width/2);
+	invader.right = PLAYER_X_COORD + (invader_width/2);
 	
 	// To check for an overlap, let's check conditions for when there is not an overlap
 	// If the conditions for no overlap are not met, that means there is an overlap
@@ -335,36 +342,100 @@ void hw3_main(void)
 								ALERT_CAR = false;
 								
 								lcd_draw_image(
-									SHIP_X_COORD,            // X Center Point
+									CAR11_X_COORD,            // X Center Point
 									car1WidthPixels,   // Image Horizontal Width
-									SHIP_Y_COORD,            // Y Center Point
+									CAR11_Y_COORD,            // Y Center Point
 									car1HeightPixels,  // Image Vertical Height
 									car1Bitmaps,       // Image
 									LCD_COLOR_BLACK,          // Foreground Color
 									LCD_COLOR_ORANGE          // Background Color
 								);
+								lcd_draw_image(
+									CAR12_X_COORD,            // X Center Point
+									car1WidthPixels,   // Image Horizontal Width
+									CAR12_Y_COORD,            // Y Center Point
+									car1HeightPixels,  // Image Vertical Height
+									car1Bitmaps,       // Image
+									LCD_COLOR_BLACK,          // Foreground Color
+									LCD_COLOR_GREEN          // Background Color
+								);
 
 
 							game_over = check_game_over(
-												SHIP_X_COORD,
-												SHIP_Y_COORD,
-												space_shipHeightPixels,
-												space_shipWidthPixels,
-												INVADER_X_COORD,
-												INVADER_Y_COORD,
+												CAR11_X_COORD,
+												CAR11_Y_COORD,
+												car1HeightPixels,
+												car1WidthPixels,
+												PLAYER_X_COORD,
+												PLAYER_Y_COORD,
+												invaderHeightPixels,
+												invaderWidthPixels
+											);
+											game_over = check_game_over(
+												CAR12_X_COORD,
+												CAR12_Y_COORD,
+												car1HeightPixels,
+												car1WidthPixels,
+												PLAYER_X_COORD,
+												PLAYER_Y_COORD,
+												invaderHeightPixels,
+												invaderWidthPixels
+											);
+							}
+							if(ALERT_TRUCK)
+							{
+								ALERT_TRUCK= false;
+								
+								lcd_draw_image(
+									CAR21_X_COORD,            // X Center Point
+									car2WidthPixels,   // Image Horizontal Width
+									CAR21_Y_COORD,            // Y Center Point
+									car2HeightPixels,  // Image Vertical Height
+									car2Bitmaps,       // Image
+									LCD_COLOR_BLACK,          // Foreground Color
+									LCD_COLOR_BLUE          // Background Color
+								);
+								lcd_draw_image(
+									CAR22_X_COORD,            // X Center Point
+									car2WidthPixels,   // Image Horizontal Width
+									CAR22_Y_COORD,            // Y Center Point
+									car2HeightPixels,  // Image Vertical Height
+									car2Bitmaps,       // Image
+									LCD_COLOR_BLACK,          // Foreground Color
+									LCD_COLOR_YELLOW          // Background Color
+								);
+
+
+							game_over = check_game_over(
+												CAR21_X_COORD,
+												CAR21_Y_COORD,
+												car2HeightPixels,
+												car2WidthPixels,
+												PLAYER_X_COORD,
+												PLAYER_Y_COORD,
+												invaderHeightPixels,
+												invaderWidthPixels
+											);
+											game_over = check_game_over(
+												CAR22_X_COORD,
+												CAR22_Y_COORD,
+												car2HeightPixels,
+												car2WidthPixels,
+												PLAYER_X_COORD,
+												PLAYER_Y_COORD,
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
 							}
 
-							if(ALERT_INVADER)
+							if(ALERT_PLAYER)
 							{
-								ALERT_INVADER = false;
+								ALERT_PLAYER = false;
 								
 							lcd_draw_image(
-								INVADER_X_COORD,          // X Center Point
+								PLAYER_X_COORD,          // X Center Point
 								invaderWidthPixels,       // Image Horizontal Width
-								INVADER_Y_COORD,          // Y Center Point
+								PLAYER_Y_COORD,          // Y Center Point
 								invaderHeightPixels,      // Image Vertical Height
 								invaderBitmaps,           // Image
 								LCD_COLOR_RED,            // Foreground Color
@@ -373,16 +444,17 @@ void hw3_main(void)
 
 
 							game_over = check_game_over(
-													SHIP_X_COORD,
-													SHIP_Y_COORD,
+													CAR11_X_COORD,
+													CAR11_Y_COORD,
 													space_shipHeightPixels,
 													space_shipWidthPixels,
-													INVADER_X_COORD,
-													INVADER_Y_COORD,
+													PLAYER_X_COORD,
+													PLAYER_Y_COORD,
 													invaderHeightPixels,
 													invaderWidthPixels
 												);
 										}
+							
 							}
 							game_state = 2;
 							lcd_clear_screen(LCD_COLOR_BLACK);
