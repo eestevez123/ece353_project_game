@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "TM4C123.h"
 #include "gpio_port.h"
@@ -34,6 +35,13 @@
 #include "ps2.h"
 #include "launchpad_io.h"
 
+#include "project_images.h"
+#include "hw3_staff.h"
+#include "hw3.h"
 #include "project_interrupts.h"
 #include "project_hardware_init.h"
+
+extern void initialize_serial_debug(void);
+extern void put_string(char *data);
+
 #endif
