@@ -1,9 +1,9 @@
 #include "hw3.h"
 
 volatile uint16_t SHIP_X_COORD = 190;
-volatile uint16_t SHIP_Y_COORD = 270;
+volatile uint16_t SHIP_Y_COORD = 100;
 volatile uint16_t INVADER_X_COORD = 50;
-volatile uint16_t INVADER_Y_COORD = 40;
+volatile uint16_t INVADER_Y_COORD = 200;
 volatile bool ALERT_SPACE_SHIP = true;
 volatile bool ALERT_INVADER = true;
 char STUDENT_NAME[] = "Eddie Estevez and Quinn Kleinschmidt";
@@ -224,8 +224,7 @@ void hw3_main(void)
       {
           if(ALERT_SPACE_SHIP)
           {
-            ALERT_SPACE_SHIP = false;
-            lcd_draw_image(
+						lcd_draw_image(
                           SHIP_X_COORD,            // X Center Point
                           space_shipWidthPixels,   // Image Horizontal Width
                           SHIP_Y_COORD,            // Y Center Point
@@ -234,6 +233,26 @@ void hw3_main(void)
                           LCD_COLOR_BLUE,          // Foreground Color
                           LCD_COLOR_BLACK          // Background Color
                         );
+					
+						 lcd_draw_image(
+                          98,            // X Center Point
+                          target1WidthPixels,   // Image Horizontal Width
+                          25,            // Y Center Point
+                          target1HeightPixels,  // Image Vertical Height
+                          target1Bitmaps,       // Image
+                          LCD_COLOR_RED,          // Foreground Color
+                          LCD_COLOR_WHITE          // Background Color  
+				);
+						lcd_draw_image(
+                          218,            // X Center Point
+                          target2WidthPixels,   // Image Horizontal Width
+                          25,            // Y Center Point
+                          target2HeightPixels,  // Image Vertical Height
+                          target2Bitmaps,       // Image
+                          LCD_COLOR_RED,          // Foreground Color
+                          LCD_COLOR_WHITE          // Background Color  
+				);
+			
               
             game_over = check_game_over(
                                         SHIP_X_COORD,
@@ -249,8 +268,7 @@ void hw3_main(void)
           
           if(ALERT_INVADER)
           {
-            ALERT_INVADER = false;
-            lcd_draw_image(
+					lcd_draw_image(
                           INVADER_X_COORD,          // X Center Point
                           invaderWidthPixels,       // Image Horizontal Width
                           INVADER_Y_COORD,          // Y Center Point
@@ -259,7 +277,26 @@ void hw3_main(void)
                           LCD_COLOR_RED,            // Foreground Color
                           LCD_COLOR_BLACK           // Background Color
                         );
-              
+						 lcd_draw_image(
+                          98,            // X Center Point
+                          target1WidthPixels,   // Image Horizontal Width
+                          25,            // Y Center Point
+                          target1HeightPixels,  // Image Vertical Height
+                          target1Bitmaps,       // Image
+                          LCD_COLOR_RED,          // Foreground Color
+                          LCD_COLOR_WHITE          // Background Color  
+				);
+						lcd_draw_image(
+                          218,            // X Center Point
+                          target2WidthPixels,   // Image Horizontal Width
+                          25,            // Y Center Point
+                          target2HeightPixels,  // Image Vertical Height
+                          target2Bitmaps,       // Image
+                          LCD_COLOR_RED,          // Foreground Color
+                          LCD_COLOR_WHITE          // Background Color  
+				);
+					
+     
              game_over = check_game_over(
                                             SHIP_X_COORD,
                                             SHIP_Y_COORD,

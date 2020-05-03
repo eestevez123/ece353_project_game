@@ -29,10 +29,19 @@ extern const uint8_t space_shipBitmaps[];
 extern const uint8_t space_shipWidthPixels;
 extern const uint8_t space_shipHeightPixels;
 
+
 // Bitmap info for invader
 extern const uint8_t invaderBitmaps[];
 extern const uint8_t invaderWidthPixels;
 extern const uint8_t invaderHeightPixels;
+
+extern const uint8_t target1Bitmaps[];
+extern const uint8_t target1WidthPixels;
+extern const uint8_t target1HeightPixels;
+
+extern const uint8_t target2Bitmaps[];
+extern const uint8_t target2WidthPixels;
+extern const uint8_t target2HeightPixels;
 
 
 #endif
