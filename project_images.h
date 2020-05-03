@@ -61,4 +61,14 @@ extern const uint8_t touchAnywhereBitmaps[];
 extern const uint8_t touchAnywhereWidthPixels;
 extern const uint8_t touchAnywhereHeightPixels;
 
+// Bitmap info for gameOver
+extern const uint8_t gameOverBitmaps[];
+extern const uint8_t gameOverWidthPixels;
+extern const uint8_t gameOverHeightPixels;
+
+// Bitmap info for highScore
+extern const uint8_t highScoreBitmaps[];
+extern const uint8_t highScoreWidthPixels;
+extern const uint8_t highScoreHeightPixels;
+
 #endif

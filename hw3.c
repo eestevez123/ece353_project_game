@@ -315,8 +315,19 @@ void hw3_main(void)
 							LCD_COLOR_RED,        // Foreground Color
 							LCD_COLOR_WHITE       // Background Color  
 							);
+			
+			// Render out high score text
+							lcd_draw_image(
+							59,            									// X Center Point
+							highScoreWidthPixels,   // Image Horizontal Width
+							300,            									// Y Center Point
+							highScoreHeightPixels, // Image Vertical Height
+							highScoreBitmaps,      // Image
+							LCD_COLOR_WHITE,         				// Foreground Color
+							LCD_COLOR_BLACK        					// Background Color  
+				);
 								
-					while((!game_over) | (!game_pause))
+					while(!game_over)
 							{	
 								
 							if(ALERT_CAR)
@@ -349,6 +360,7 @@ void hw3_main(void)
 							if(ALERT_INVADER)
 							{
 								ALERT_INVADER = false;
+								
 							lcd_draw_image(
 								INVADER_X_COORD,          // X Center Point
 								invaderWidthPixels,       // Image Horizontal Width
@@ -372,11 +384,25 @@ void hw3_main(void)
 												);
 										}
 							}
+							game_state = 2;
+							lcd_clear_screen(LCD_COLOR_BLACK);
+							break;
+			case 2:
+							lcd_draw_image(
+							120,            									// X Center Point
+							gameOverWidthPixels,   // Image Horizontal Width
+							160,            									// Y Center Point
+							gameOverHeightPixels, // Image Vertical Height
+							gameOverBitmaps,      // Image
+							LCD_COLOR_WHITE,         				// Foreground Color
+							LCD_COLOR_BLACK        					// Background Color  
+				);
+						
 			break;
 			//*****************************************************************************
 			// Default Case
 			//*****************************************************************************
-			default: 						game_state = 0x0;
+			default: 						game_state = 0;
 													break;
 		}
 	}
