@@ -58,8 +58,8 @@ bool touch_edge22;
 
 void TIMER0A_Handler(void)
 {	
-	touch_edge21 = contact_edge(PS2_DIR_RIGHT, CAR21_X_COORD -1 , CAR21_Y_COORD, car2HeightPixels, car2WidthPixels);
-	touch_edge22 = contact_edge(PS2_DIR_RIGHT, CAR22_X_COORD -1, CAR22_Y_COORD, car2HeightPixels, car2WidthPixels);
+	touch_edge21 = contact_edge(PS2_DIR_RIGHT, CAR21_X_COORD , CAR21_Y_COORD, car2HeightPixels, car2WidthPixels);
+	touch_edge22 = contact_edge(PS2_DIR_RIGHT, CAR22_X_COORD , CAR22_Y_COORD, car2HeightPixels, car2WidthPixels);
 	
 	// Let's check where move_count is at
 		// can it move? Let's move it if we can
@@ -68,30 +68,14 @@ void TIMER0A_Handler(void)
 			ALERT_TRUCK1 = true;
 		} 
 		else{
-		lcd_draw_image(
-									CAR21_X_COORD - 1,            // X Center Point
-									car2WidthPixels,   // Image Horizontal Width
-									CAR21_Y_COORD,            // Y Center Point
-									car2HeightPixels,  // Image Vertical Height
-									car2Bitmaps,       // Image
-									LCD_COLOR_BLACK,          // Foreground Color
-									LCD_COLOR_BLACK          // Background Color
-								);
+			ERASE_TRUCK = true;
 		CAR21_X_COORD = car2WidthPixels/2;
 	}
 		if(!touch_edge22) {
 			CAR22_X_COORD++;
 			ALERT_TRUCK2 = true;
 		} else{
-			lcd_draw_image(
-									CAR22_X_COORD - 1,            // X Center Point
-									car2WidthPixels,   // Image Horizontal Width
-									CAR22_Y_COORD,            // Y Center Point
-									car2HeightPixels,  // Image Vertical Height
-									car2Bitmaps,       // Image
-									LCD_COLOR_BLACK,          // Foreground Color
-									LCD_COLOR_BLACK          // Background Color
-								);
+			ERASE_TRUCK = true;
 		CAR22_X_COORD = car2WidthPixels/2;
 	}
 	// Clear the interrupt
@@ -147,30 +131,14 @@ void TIMER3A_Handler(void)
 			ALERT_CAR1 = true;
 		} 
 		else{
-		lcd_draw_image(
-									CAR11_X_COORD - 1,            // X Center Point
-									car1WidthPixels,   // Image Horizontal Width
-									CAR11_Y_COORD,            // Y Center Point
-									car1HeightPixels,  // Image Vertical Height
-									car1Bitmaps,       // Image
-									LCD_COLOR_BLACK,          // Foreground Color
-									LCD_COLOR_BLACK          // Background Color
-								);
+			ERASE_CAR = true;
 		CAR11_X_COORD = car1WidthPixels/2;
 	}
 		if(!touch_edge12) {
 			CAR12_X_COORD++;
 			ALERT_CAR2 = true;
 		} else{
-			lcd_draw_image(
-									CAR12_X_COORD - 1,            // X Center Point
-									car1WidthPixels,   // Image Horizontal Width
-									CAR12_Y_COORD,            // Y Center Point
-									car1HeightPixels,  // Image Vertical Height
-									car1Bitmaps,       // Image
-									LCD_COLOR_BLACK,          // Foreground Color
-									LCD_COLOR_BLACK          // Background Color
-								);
+			ERASE_CAR = true;
 		CAR12_X_COORD = car1WidthPixels/2;
 	}
 	// Clear the interrupt

@@ -27,6 +27,8 @@ volatile bool ALERT_CAR2 = false;
 volatile bool ALERT_TRUCK2 = false;
 volatile bool ALERT_PLAYER = true;
 volatile bool SWITCH_IMAGE = true;
+volatile bool ERASE_CAR = false;
+volatile bool ERASE_TRUCK = false;
 bool gameOverFirstTime = true;
 const uint8_t *virusBitMapVar;
 char STUDENT_NAME[] = "Eddie Estevez and Quinn Kleinschmidt";
@@ -356,6 +358,10 @@ void hw3_main(void)
 								
 					while(!game_over)
 							{	
+								if(ERASE_CAR){
+									ERASE_CAR = false;
+									lcd_draw_rectangle_centered(222, 36, 240, 20, LCD_COLOR_BLACK);
+								}
 							if(ALERT_CAR1)
 							{
 								ALERT_CAR1 = false;
@@ -411,6 +417,10 @@ void hw3_main(void)
 				break;
 		};
 							}
+							if(ERASE_TRUCK){
+								ERASE_TRUCK = false;
+									lcd_draw_rectangle_centered(214, 52, 100, 20, LCD_COLOR_BLACK);
+								}
 							if(ALERT_TRUCK1)
 							{
 								ALERT_TRUCK1= false;
