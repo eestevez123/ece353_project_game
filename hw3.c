@@ -222,9 +222,11 @@ void init_hardware(void)
   lcd_config_screen();
   lcd_clear_screen(LCD_COLOR_BLACK);
   ps2_initialize();
+	
+	lp_io_init();
   
-  // Update the Space Shipt 60 times per second.
 	gp_timer_config_32(TIMER0_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
+	gp_timer_config_32(TIMER1_BASE,TIMER_TAMR_TAMR_PERIOD, 20000000, false, true);
   gp_timer_config_32(TIMER2_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
   gp_timer_config_32(TIMER3_BASE,TIMER_TAMR_TAMR_PERIOD, 900000, false, true);
   gp_timer_config_32(TIMER4_BASE,TIMER_TAMR_TAMR_PERIOD, 50000, false, true);

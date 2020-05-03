@@ -98,6 +98,22 @@ void TIMER0A_Handler(void)
 	TIMER0->ICR |= TIMER_ICR_TATOCINT; 
 }
 //*****************************************************************************
+// TIMER1 is used to blink a LED
+//*****************************************************************************
+int LED = 0;
+void TIMER1A_Handler(void)
+{	if(LED == 0){
+lp_io_set_pin(RED_PIN);
+	LED = 1;
+}else{
+	lp_io_clear_pin(RED_PIN);
+	LED = 0;
+}
+	
+	// Clear the interrupt
+	TIMER1->ICR |= TIMER_ICR_TATOCINT;
+}
+//*****************************************************************************
 // TIMER2 ISR is used to determine when to move the Invader
 //*****************************************************************************
 void TIMER2A_Handler(void)
