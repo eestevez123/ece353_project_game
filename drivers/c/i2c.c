@@ -50,7 +50,8 @@ i2c_status_t initializeI2CMaster(uint32_t base_addr)
     // TPR = (System Clock/(2*(SCL_LP + SCL_HP)*SCL_CLK))-1;
     // TPR = (50MHz/(2*(6+4)*100000))-1
     //myI2C->MTPR = 0x18;
-    myI2C->MTPR = 0x06;
+		// myI2C->MTPR = 0x06; it was like this before
+    myI2C->MTPR = 0x18;
     
     
     return I2C_OK;

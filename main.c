@@ -47,7 +47,7 @@ void EnableInterrupts(void)
 int 
 main(void)
 {
-
+	initializeBoard();
   hw3_main();
                     
   // Reach infinite loop after the game is over.

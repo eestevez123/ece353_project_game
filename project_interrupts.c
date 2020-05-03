@@ -79,11 +79,11 @@ void TIMER3A_Handler(void)
 		// can it move? Let's move it if we can
 		if(!touch_edge) {
 			move_image(PS2_DIR_RIGHT, &SHIP_X_COORD, &SHIP_Y_COORD, car1HeightPixels, car1WidthPixels);
-			ALERT_SPACE_SHIP = true;
+			ALERT_CAR = true;
 		} 
 	// if we can't move since move_count is 0 or an edge was hit, let's give it a new direction and move count
 	else{
-		SHIP_X_COORD = 0;
+		SHIP_X_COORD = car1WidthPixels/2;
 	}
 	// Clear the interrupt
 	TIMER3->ICR |= TIMER_ICR_TATOCINT; 

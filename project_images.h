@@ -51,5 +51,14 @@ extern const uint8_t car2Bitmaps[];
 extern const uint8_t car2WidthPixels;
 extern const uint8_t car2HeightPixels;
 
+// Bitmap info for welcomeScreenTitle
+extern const uint8_t welcomeScreenTitleBitmaps[];
+extern const uint8_t welcomeScreenTitleWidthPixels;
+extern const uint8_t welcomeScreenTitleHeightPixels;
+
+// Bitmap info for touchAnywhere
+extern const uint8_t touchAnywhereBitmaps[];
+extern const uint8_t touchAnywhereWidthPixels;
+extern const uint8_t touchAnywhereHeightPixels;
 
 #endif

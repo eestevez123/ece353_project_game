@@ -1,12 +1,18 @@
+#include "main.h"
 #include "hw3.h"
 
-volatile uint16_t SHIP_X_COORD = 0;
+
+volatile uint16_t SHIP_X_COORD = 16;
 volatile uint16_t SHIP_Y_COORD = 200;
 volatile uint16_t INVADER_X_COORD = 50;
 volatile uint16_t INVADER_Y_COORD = 100;
-volatile bool ALERT_SPACE_SHIP = true;
+volatile bool ALERT_CAR = false;
 volatile bool ALERT_INVADER = true;
 char STUDENT_NAME[] = "Eddie Estevez and Quinn Kleinschmidt";
+
+uint8_t ft6x06_read_td_status(void);
+uint16_t ft6x06_read_x(void);
+uint16_t ft6x06_read_y(void);
 
 typedef struct
 {
@@ -212,6 +218,7 @@ void init_hardware(void)
 }
 
 uint8_t game_state;
+
 //*****************************************************************************
 // Main application for HW3
 //*****************************************************************************
@@ -220,11 +227,16 @@ void hw3_main(void)
     bool game_over = false;
 		bool game_pause = false;
 	
+		uint16_t x,y;
+		uint8_t touch_event;
+		i2c_status_t td_status;
+		i2c_status_t x_status;
+		i2c_status_t y_status;
 	
     init_hardware();
 		
 		// Have game start at the Welcome Screen
-		 game_state = 0x1;
+		 game_state = 0;
 	
 		/* States for game_state
 					Welcome Screen = 0x0;
@@ -238,26 +250,43 @@ void hw3_main(void)
 			//*****************************************************************************
 			// Welcome Screen
 			//*****************************************************************************
-			case 0x0:
-				// Render out Target (for now for testing purposes)
+			case 0:
+				
+			
+			touch_event = ft6x06_read_td_status();
+			
+			if(touch_event == 1 | touch_event == 2) {
+				x = ft6x06_read_x();
+				y = ft6x06_read_y();
+				game_state = 1;
+				if(game_state) {
+				lcd_clear_screen(LCD_COLOR_BLACK);
+				break;
+				};
+			}
+			gp_timer_wait(TIMER0_BASE, 5000000);
+			
 				lcd_draw_image(
-							98,            				// X Center Point
-							target1WidthPixels,   // Image Horizontal Width
-							25,            				// Y Center Point
-							target1HeightPixels,  // Image Vertical Height
-							target1Bitmaps,       // Image
-							LCD_COLOR_RED,         // Foreground Color
-							LCD_COLOR_WHITE        // Background Color  
-					);
+							120,            									// X Center Point
+							welcomeScreenTitleWidthPixels,   // Image Horizontal Width
+							80,            									// Y Center Point
+							welcomeScreenTitleHeightPixels, // Image Vertical Height
+							welcomeScreenTitleBitmaps,      // Image
+							LCD_COLOR_WHITE,         				// Foreground Color
+							LCD_COLOR_BLACK        					// Background Color  
+				);
+			
 							lcd_draw_image(
-							218,            			// X Center Point
-							target2WidthPixels,   // Image Horizontal Width
-							25,           				// Y Center Point
-							target2HeightPixels,  // Image Vertical Height
-							target2Bitmaps,       // Image
-							LCD_COLOR_RED,        // Foreground Color
-							LCD_COLOR_WHITE       // Background Color  
-							);
+							120,            									// X Center Point
+							touchAnywhereWidthPixels,   // Image Horizontal Width
+							240,            									// Y Center Point
+							touchAnywhereHeightPixels, // Image Vertical Height
+							touchAnywhereBitmaps,      // Image
+							LCD_COLOR_WHITE,         				// Foreground Color
+							LCD_COLOR_BLACK        					// Background Color  
+				);
+			
+			
 			break;
 			//*****************************************************************************
 			
@@ -266,8 +295,7 @@ void hw3_main(void)
 			//*****************************************************************************
 			// GameScreen
 			//*****************************************************************************
-			case 0x1:
-				
+			case 1: 
 			// Render out Target
 				lcd_draw_image(
 							98,            				// X Center Point
@@ -288,18 +316,21 @@ void hw3_main(void)
 							LCD_COLOR_WHITE       // Background Color  
 							);
 								
-							while((!game_over) | (!game_pause))
+					while((!game_over) | (!game_pause))
+							{	
+								
+							if(ALERT_CAR)
 							{
-							if(ALERT_SPACE_SHIP)
-							{
+								ALERT_CAR = false;
+								
 								lcd_draw_image(
-								SHIP_X_COORD,            // X Center Point
-								car1WidthPixels,   // Image Horizontal Width
-								SHIP_Y_COORD,            // Y Center Point
-								car1HeightPixels,  // Image Vertical Height
-								car1Bitmaps,       // Image
-								LCD_COLOR_BLACK,          // Foreground Color
-								LCD_COLOR_ORANGE          // Background Color
+									SHIP_X_COORD,            // X Center Point
+									car1WidthPixels,   // Image Horizontal Width
+									SHIP_Y_COORD,            // Y Center Point
+									car1HeightPixels,  // Image Vertical Height
+									car1Bitmaps,       // Image
+									LCD_COLOR_BLACK,          // Foreground Color
+									LCD_COLOR_ORANGE          // Background Color
 								);
 
 
@@ -317,6 +348,7 @@ void hw3_main(void)
 
 							if(ALERT_INVADER)
 							{
+								ALERT_INVADER = false;
 							lcd_draw_image(
 								INVADER_X_COORD,          // X Center Point
 								invaderWidthPixels,       // Image Horizontal Width
@@ -340,6 +372,7 @@ void hw3_main(void)
 												);
 										}
 							}
+			break;
 			//*****************************************************************************
 			// Default Case
 			//*****************************************************************************

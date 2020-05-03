@@ -12,12 +12,15 @@
 #include "lcd.h"
 #include "timers.h"
 #include "project_images.h"
+#include "i2c.h"
+#include "ft6x06.h"
+
 
 extern volatile uint16_t SHIP_X_COORD;
 extern volatile uint16_t SHIP_Y_COORD;
 extern volatile uint16_t INVADER_X_COORD;
 extern volatile uint16_t INVADER_Y_COORD;
-extern volatile bool ALERT_SPACE_SHIP;
+extern volatile bool ALERT_CAR;
 extern volatile bool ALERT_INVADER;
 extern char STUDENT_NAME[];
 
