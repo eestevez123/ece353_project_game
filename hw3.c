@@ -271,7 +271,6 @@ void hw3_main(void)
 		
 		while(true)
 		{
-		if(game_over) game_state = 2;
 		switch(game_state) {
 			
 			//*****************************************************************************
@@ -357,7 +356,6 @@ void hw3_main(void)
 								
 					while(!game_over)
 							{	
-								
 							if(ALERT_CAR1)
 							{
 								ALERT_CAR1 = false;
@@ -381,6 +379,10 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
+		if(game_over) {
+				game_state = 2;
+				break;
+		};
 							}
 							if(ALERT_CAR2)
 							{
@@ -404,6 +406,10 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
+										if(game_over) {
+				game_state = 2;
+				break;
+		};
 							}
 							if(ALERT_TRUCK1)
 							{
@@ -428,6 +434,10 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
+													if(game_over) {
+				game_state = 2;
+				break;
+		};
 							}
 							if(ALERT_TRUCK2)
 							{
@@ -451,6 +461,10 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
+										if(game_over) {
+				game_state = 2;
+				break;
+		};
 							}
 							
 							if(ALERT_VIRUS1)
@@ -490,7 +504,10 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
-								if(game_over) break;
+										if(game_over) {
+				game_state = 2;
+				break;
+		};
 							}
 							if(ALERT_VIRUS2)
 							{
@@ -528,7 +545,10 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
-								if(game_over) break;
+										if(game_over) {
+				game_state = 2;
+				break;
+		};
 							}
 
 							if(ALERT_PLAYER)
@@ -555,7 +575,10 @@ void hw3_main(void)
 													invaderHeightPixels,
 													invaderWidthPixels
 												);
-												if(game_over) break;
+														if(game_over) {
+				game_state = 2;
+				break;
+		};
 												game_over = check_game_over(
 												CAR12_X_COORD,
 												CAR12_Y_COORD,
@@ -566,7 +589,10 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
-											if(game_over) break;
+													if(game_over) {
+				game_state = 2;
+				break;
+		};
 											game_over = check_game_over(
 												VIRUS1_X_COORD,
 												VIRUS1_Y_COORD,
@@ -577,7 +603,10 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
-											if(game_over) break;
+													if(game_over) {
+				game_state = 2;
+				break;
+		};
 											game_over = check_game_over(
 												VIRUS2_X_COORD,
 												VIRUS2_Y_COORD,
@@ -588,7 +617,10 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
-											if(game_over) break;
+													if(game_over) {
+				game_state = 2;
+				break;
+		};
 											game_over = check_game_over(
 												CAR21_X_COORD,
 												CAR21_Y_COORD,
@@ -599,7 +631,10 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
-											if(game_over) break;
+													if(game_over) {
+				game_state = 2;
+				break;
+		};
 											game_over = check_game_over(
 												CAR22_X_COORD,
 												CAR22_Y_COORD,
@@ -610,6 +645,10 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
+				if(game_over) {
+				game_state = 2;
+				break;
+		};
 											ALERT_PLAYER = false;
 										}
 							}
