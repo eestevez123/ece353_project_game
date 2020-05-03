@@ -16,6 +16,9 @@ volatile uint16_t VIRUS2_X_COORD = 226;
 volatile uint16_t VIRUS2_Y_COORD = 190;
 volatile uint16_t PLAYER_X_COORD = 200;
 volatile uint16_t PLAYER_Y_COORD = 300;
+
+
+uint8_t virusFrameCounter = 0;
 volatile bool ALERT_VIRUS = false;
 volatile bool ALERT_CAR = false;
 volatile bool ALERT_TRUCK = false;
@@ -447,16 +450,25 @@ void hw3_main(void)
 								// switches out bitmaps every now and then
 								if(SWITCH_IMAGE) {
 									virusBitMapVar = virus_detailBitmaps;
-								} else
+								} else {
+								virusBitMapVar = virus_noDetailBitmaps;
+								}
 								
-								lcd_draw_image(
+								if(virusFrameCounter != 20) {
+								virusFrameCounter++;
+								} else {
+								SWITCH_IMAGE = !SWITCH_IMAGE;
+									virusFrameCounter = 0;
+								}
+								
+								lcd_draw_image (
 									VIRUS1_X_COORD,            // X Center Point
 									virus_detailWidthPixels,   // Image Horizontal Width
 									VIRUS1_Y_COORD,            // Y Center Point
 									virus_detailHeightPixels,  // Image Vertical Height
-									virusBitMapVar,       			// Image
-									LCD_COLOR_BLUE,          // Foreground Color
-									LCD_COLOR_BLACK          // Background Color
+									virusBitMapVar,       // Image
+									LCD_COLOR_BLUE,          	 // Foreground Color
+									LCD_COLOR_BLACK          	 // Background Color
 								);
 								lcd_draw_image(
 									VIRUS2_X_COORD,            // X Center Point
