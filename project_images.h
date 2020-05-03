@@ -71,4 +71,14 @@ extern const uint8_t highScoreBitmaps[];
 extern const uint8_t highScoreWidthPixels;
 extern const uint8_t highScoreHeightPixels;
 
+// Bitmap info for virus_noDetail
+extern const uint8_t virus_noDetailBitmaps[];
+extern const uint8_t virus_noDetailWidthPixels;
+extern const uint8_t virus_noDetailHeightPixels;
+
+// Bitmap info for virus_detail
+extern const uint8_t virus_detailBitmaps[];
+extern const uint8_t virus_detailWidthPixels;
+extern const uint8_t virus_detailHeightPixels;
+
 #endif

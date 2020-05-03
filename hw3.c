@@ -20,6 +20,8 @@ volatile bool ALERT_VIRUS = false;
 volatile bool ALERT_CAR = false;
 volatile bool ALERT_TRUCK = false;
 volatile bool ALERT_PLAYER = true;
+volatile bool SWITCH_IMAGE = true;
+const uint8_t *virusBitMapVar;
 char STUDENT_NAME[] = "Eddie Estevez and Quinn Kleinschmidt";
 
 uint8_t ft6x06_read_td_status(void);
@@ -442,23 +444,28 @@ void hw3_main(void)
 							{
 								ALERT_VIRUS= false;
 								
+								// switches out bitmaps every now and then
+								if(SWITCH_IMAGE) {
+									virusBitMapVar = virus_detailBitmaps;
+								} else
+								
 								lcd_draw_image(
 									VIRUS1_X_COORD,            // X Center Point
-									invaderWidthPixels,   // Image Horizontal Width
+									virus_detailWidthPixels,   // Image Horizontal Width
 									VIRUS1_Y_COORD,            // Y Center Point
-									invaderHeightPixels,  // Image Vertical Height
-									invaderBitmaps,       // Image
-									LCD_COLOR_BLACK,          // Foreground Color
-									LCD_COLOR_BLUE          // Background Color
+									virus_detailHeightPixels,  // Image Vertical Height
+									virusBitMapVar,       			// Image
+									LCD_COLOR_BLUE,          // Foreground Color
+									LCD_COLOR_BLACK          // Background Color
 								);
 								lcd_draw_image(
 									VIRUS2_X_COORD,            // X Center Point
-									invaderWidthPixels,   // Image Horizontal Width
+									virus_detailWidthPixels,   // Image Horizontal Width
 									VIRUS2_Y_COORD,            // Y Center Point
-									invaderHeightPixels,  // Image Vertical Height
-									invaderBitmaps,       // Image
-									LCD_COLOR_BLACK,          // Foreground Color
-									LCD_COLOR_YELLOW          // Background Color
+									virus_detailHeightPixels,  // Image Vertical Height
+									virusBitMapVar,       		 // Image
+									LCD_COLOR_YELLOW,          // Foreground Color
+									LCD_COLOR_BLACK       	   // Background Color
 								);
 
 
