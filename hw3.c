@@ -219,22 +219,7 @@ void hw3_main(void)
     bool game_over = false;
     init_hardware();
    
-
-      while(!game_over)
-      {
-          if(ALERT_SPACE_SHIP)
-          {
-						lcd_draw_image(
-                          SHIP_X_COORD,            // X Center Point
-                          space_shipWidthPixels,   // Image Horizontal Width
-                          SHIP_Y_COORD,            // Y Center Point
-                          space_shipHeightPixels,  // Image Vertical Height
-                          space_shipBitmaps,       // Image
-                          LCD_COLOR_BLUE,          // Foreground Color
-                          LCD_COLOR_BLACK          // Background Color
-                        );
-					
-						 lcd_draw_image(
+			 lcd_draw_image(
                           98,            // X Center Point
                           target1WidthPixels,   // Image Horizontal Width
                           25,            // Y Center Point
@@ -252,6 +237,19 @@ void hw3_main(void)
                           LCD_COLOR_RED,          // Foreground Color
                           LCD_COLOR_WHITE          // Background Color  
 				);
+      while(!game_over)
+      {
+          if(ALERT_SPACE_SHIP)
+          {
+						lcd_draw_image(
+                          SHIP_X_COORD,            // X Center Point
+                          space_shipWidthPixels,   // Image Horizontal Width
+                          SHIP_Y_COORD,            // Y Center Point
+                          space_shipHeightPixels,  // Image Vertical Height
+                          space_shipBitmaps,       // Image
+                          LCD_COLOR_BLUE,          // Foreground Color
+                          LCD_COLOR_BLACK          // Background Color
+                        );
 			
               
             game_over = check_game_over(
@@ -277,24 +275,6 @@ void hw3_main(void)
                           LCD_COLOR_RED,            // Foreground Color
                           LCD_COLOR_BLACK           // Background Color
                         );
-						 lcd_draw_image(
-                          98,            // X Center Point
-                          target1WidthPixels,   // Image Horizontal Width
-                          25,            // Y Center Point
-                          target1HeightPixels,  // Image Vertical Height
-                          target1Bitmaps,       // Image
-                          LCD_COLOR_RED,          // Foreground Color
-                          LCD_COLOR_WHITE          // Background Color  
-				);
-						lcd_draw_image(
-                          218,            // X Center Point
-                          target2WidthPixels,   // Image Horizontal Width
-                          25,            // Y Center Point
-                          target2HeightPixels,  // Image Vertical Height
-                          target2Bitmaps,       // Image
-                          LCD_COLOR_RED,          // Foreground Color
-                          LCD_COLOR_WHITE          // Background Color  
-				);
 					
      
              game_over = check_game_over(
