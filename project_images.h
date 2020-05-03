@@ -43,5 +43,13 @@ extern const uint8_t target2Bitmaps[];
 extern const uint8_t target2WidthPixels;
 extern const uint8_t target2HeightPixels;
 
+extern const uint8_t car1Bitmaps[];
+extern const uint8_t car1WidthPixels;
+extern const uint8_t car1HeightPixels;
+
+extern const uint8_t car2Bitmaps[];
+extern const uint8_t car2WidthPixels;
+extern const uint8_t car2HeightPixels;
+
 
 #endif
