@@ -26,7 +26,8 @@
 static volatile uint16_t PS2_X_DATA;
 static volatile uint16_t PS2_Y_DATA;
 static volatile PS2_DIR_t PS2_DIR = PS2_DIR_CENTER;
-static volatile PS2_DIR_t SHIP_DIR = PS2_DIR_CENTER;
+static volatile PS2_DIR_t VIRUS1_DIR = PS2_DIR_RIGHT;
+static volatile PS2_DIR_t VIRUS2_DIR = PS2_DIR_LEFT;
 static volatile uint16_t move_count = 0;
 
 
@@ -52,30 +53,46 @@ PS2_DIR_t ps2_get_direction(void)
 //*****************************************************************************
 // TIMER0 ISR is used to move car2
 //*****************************************************************************
-bool touch_edge1;
-bool touch_edge2;
+bool touch_edge21;
+bool touch_edge22;
 
 void TIMER0A_Handler(void)
 {	
-	touch_edge1 = contact_edge(PS2_DIR_RIGHT, CAR21_X_COORD -1 , CAR21_Y_COORD, car1HeightPixels, car1WidthPixels);
-	touch_edge2 = contact_edge(PS2_DIR_RIGHT, CAR22_X_COORD -1, CAR22_Y_COORD, car1HeightPixels, car1WidthPixels);
+	touch_edge21 = contact_edge(PS2_DIR_RIGHT, CAR21_X_COORD -1 , CAR21_Y_COORD, car2HeightPixels, car2WidthPixels);
+	touch_edge22 = contact_edge(PS2_DIR_RIGHT, CAR22_X_COORD -1, CAR22_Y_COORD, car2HeightPixels, car2WidthPixels);
 	
 	// Let's check where move_count is at
 		// can it move? Let's move it if we can
-		if(!touch_edge1) {
+		if(!touch_edge21) {
 			CAR21_X_COORD++;
 			ALERT_TRUCK = true;
 		} 
 		else{
-		lcd_draw_rectangle_centered(220, 40, 240, 50, LCD_COLOR_BLACK);
-		CAR11_X_COORD = car1WidthPixels/2;
+		lcd_draw_image(
+									CAR21_X_COORD - 1,            // X Center Point
+									car2WidthPixels,   // Image Horizontal Width
+									CAR21_Y_COORD,            // Y Center Point
+									car2HeightPixels,  // Image Vertical Height
+									car2Bitmaps,       // Image
+									LCD_COLOR_BLACK,          // Foreground Color
+									LCD_COLOR_BLACK          // Background Color
+								);
+		CAR21_X_COORD = car2WidthPixels/2;
 	}
-		if(!touch_edge2) {
+		if(!touch_edge22) {
 			CAR22_X_COORD++;
 			ALERT_TRUCK = true;
 		} else{
-			lcd_draw_rectangle_centered(220, 40, 240, 50, LCD_COLOR_BLACK);
-		CAR12_X_COORD = car1WidthPixels/2;
+			lcd_draw_image(
+									CAR22_X_COORD - 1,            // X Center Point
+									car2WidthPixels,   // Image Horizontal Width
+									CAR22_Y_COORD,            // Y Center Point
+									car2HeightPixels,  // Image Vertical Height
+									car2Bitmaps,       // Image
+									LCD_COLOR_BLACK,          // Foreground Color
+									LCD_COLOR_BLACK          // Background Color
+								);
+		CAR22_X_COORD = car2WidthPixels/2;
 	}
 	// Clear the interrupt
 	TIMER0->ICR |= TIMER_ICR_TATOCINT; 
@@ -98,30 +115,46 @@ void TIMER2A_Handler(void)
 //*****************************************************************************
 // TIMER3 ISR is used to determine when to move the spaceship
 //*****************************************************************************
-bool touch_edge1;
-bool touch_edge2;
+bool touch_edge11;
+bool touch_edge12;
 
 void TIMER3A_Handler(void)
 {	
 	// Let's check if the ship has touched edge from where it is
-	touch_edge1 = contact_edge(PS2_DIR_RIGHT, CAR11_X_COORD -1 , CAR11_Y_COORD, car1HeightPixels, car1WidthPixels);
-	touch_edge2 = contact_edge(PS2_DIR_RIGHT, CAR12_X_COORD -1, CAR12_Y_COORD, car1HeightPixels, car1WidthPixels);
+	touch_edge11 = contact_edge(PS2_DIR_RIGHT, CAR11_X_COORD -2 , CAR11_Y_COORD, car1HeightPixels, car1WidthPixels);
+	touch_edge12 = contact_edge(PS2_DIR_RIGHT, CAR12_X_COORD -2, CAR12_Y_COORD, car1HeightPixels, car1WidthPixels);
 	
 	// Let's check where move_count is at
 		// can it move? Let's move it if we can
-		if(!touch_edge1) {
+		if(!touch_edge11) {
 			CAR11_X_COORD++;
 			ALERT_CAR = true;
 		} 
 		else{
-		lcd_draw_rectangle_centered(220, 40, 240, 50, LCD_COLOR_BLACK);
+		lcd_draw_image(
+									CAR11_X_COORD - 1,            // X Center Point
+									car1WidthPixels,   // Image Horizontal Width
+									CAR11_Y_COORD,            // Y Center Point
+									car1HeightPixels,  // Image Vertical Height
+									car1Bitmaps,       // Image
+									LCD_COLOR_BLACK,          // Foreground Color
+									LCD_COLOR_BLACK          // Background Color
+								);
 		CAR11_X_COORD = car1WidthPixels/2;
 	}
-		if(!touch_edge2) {
+		if(!touch_edge12) {
 			CAR12_X_COORD++;
 			ALERT_CAR = true;
 		} else{
-			lcd_draw_rectangle_centered(220, 40, 240, 50, LCD_COLOR_BLACK);
+			lcd_draw_image(
+									CAR12_X_COORD - 1,            // X Center Point
+									car1WidthPixels,   // Image Horizontal Width
+									CAR12_Y_COORD,            // Y Center Point
+									car1HeightPixels,  // Image Vertical Height
+									car1Bitmaps,       // Image
+									LCD_COLOR_BLACK,          // Foreground Color
+									LCD_COLOR_BLACK          // Background Color
+								);
 		CAR12_X_COORD = car1WidthPixels/2;
 	}
 	// Clear the interrupt
@@ -139,7 +172,53 @@ void TIMER4A_Handler(void)
 	// Trigger ADC Sample Sequencer 2 conversion
 	ADC0 ->PSSI |= ADC_PSSI_SS2;
 }
+//*****************************************************************************
+// TIMER3 ISR is used to determine when to move the spaceship
+//*****************************************************************************
+bool touch_edge31;
+bool touch_edge32;
 
+void TIMER5A_Handler(void)
+{	
+	// Let's check if the ship has touched edge from where it is
+	touch_edge31 = contact_edge(VIRUS1_DIR, VIRUS1_X_COORD -1, VIRUS1_Y_COORD, invaderHeightPixels, invaderWidthPixels);
+	touch_edge32 = contact_edge(VIRUS2_DIR, VIRUS2_X_COORD -1, VIRUS2_Y_COORD, invaderHeightPixels, invaderWidthPixels);
+	
+	// Let's check where move_count is at
+		// can it move? Let's move it if we can
+		if(!touch_edge31) {
+			if(VIRUS1_DIR == PS2_DIR_RIGHT){
+			VIRUS1_X_COORD++;
+			}else{
+				VIRUS1_X_COORD--;
+			}
+			ALERT_VIRUS = true;
+		} 
+		else{
+		if(VIRUS1_DIR == PS2_DIR_RIGHT){
+			VIRUS1_DIR = PS2_DIR_LEFT;
+			}else{
+				VIRUS1_DIR = PS2_DIR_RIGHT;
+			}
+	}
+		if(!touch_edge32) {
+			if(VIRUS2_DIR == PS2_DIR_RIGHT){
+			VIRUS2_X_COORD++;
+			}else{
+				VIRUS2_X_COORD--;
+			}
+			ALERT_VIRUS = true;
+		} 
+		else{
+		if(VIRUS2_DIR == PS2_DIR_RIGHT){
+			VIRUS2_DIR = PS2_DIR_LEFT;
+			}else{
+				VIRUS2_DIR = PS2_DIR_RIGHT;
+			}
+	}
+	// Clear the interrupt
+	TIMER5->ICR |= TIMER_ICR_TATOCINT; 
+}
 //*****************************************************************************
 // ADC0 SS2 ISR
 //*****************************************************************************

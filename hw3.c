@@ -7,11 +7,16 @@ volatile uint16_t CAR11_Y_COORD = 240;
 volatile uint16_t CAR12_X_COORD = 116;
 volatile uint16_t CAR12_Y_COORD = 240;
 volatile uint16_t CAR21_X_COORD = 26;
-volatile uint16_t CAR21_Y_COORD = 190;
+volatile uint16_t CAR21_Y_COORD = 100;
 volatile uint16_t CAR22_X_COORD = 126;
-volatile uint16_t CAR22_Y_COORD = 190;
-volatile uint16_t PLAYER_X_COORD = 50;
-volatile uint16_t PLAYER_Y_COORD = 100;
+volatile uint16_t CAR22_Y_COORD = 100;
+volatile uint16_t VIRUS1_X_COORD = 14;
+volatile uint16_t VIRUS1_Y_COORD = 140;
+volatile uint16_t VIRUS2_X_COORD = 226;
+volatile uint16_t VIRUS2_Y_COORD = 190;
+volatile uint16_t PLAYER_X_COORD = 200;
+volatile uint16_t PLAYER_Y_COORD = 300;
+volatile bool ALERT_VIRUS = false;
 volatile bool ALERT_CAR = false;
 volatile bool ALERT_TRUCK = false;
 volatile bool ALERT_PLAYER = true;
@@ -219,9 +224,12 @@ void init_hardware(void)
   ps2_initialize();
   
   // Update the Space Shipt 60 times per second.
+	gp_timer_config_32(TIMER0_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
   gp_timer_config_32(TIMER2_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
-  gp_timer_config_32(TIMER3_BASE,TIMER_TAMR_TAMR_PERIOD, 500000, false, true);
+  gp_timer_config_32(TIMER3_BASE,TIMER_TAMR_TAMR_PERIOD, 900000, false, true);
   gp_timer_config_32(TIMER4_BASE,TIMER_TAMR_TAMR_PERIOD, 50000, false, true);
+	gp_timer_config_32(TIMER5_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
+	
 }
 
 uint8_t game_state;
@@ -427,6 +435,52 @@ void hw3_main(void)
 												invaderWidthPixels
 											);
 							}
+							
+							if(ALERT_VIRUS)
+							{
+								ALERT_VIRUS= false;
+								
+								lcd_draw_image(
+									VIRUS1_X_COORD,            // X Center Point
+									invaderWidthPixels,   // Image Horizontal Width
+									VIRUS1_Y_COORD,            // Y Center Point
+									invaderHeightPixels,  // Image Vertical Height
+									invaderBitmaps,       // Image
+									LCD_COLOR_BLACK,          // Foreground Color
+									LCD_COLOR_BLUE          // Background Color
+								);
+								lcd_draw_image(
+									VIRUS2_X_COORD,            // X Center Point
+									invaderWidthPixels,   // Image Horizontal Width
+									VIRUS2_Y_COORD,            // Y Center Point
+									invaderHeightPixels,  // Image Vertical Height
+									invaderBitmaps,       // Image
+									LCD_COLOR_BLACK,          // Foreground Color
+									LCD_COLOR_YELLOW          // Background Color
+								);
+
+
+							game_over = check_game_over(
+												CAR21_X_COORD,
+												CAR21_Y_COORD,
+												car2HeightPixels,
+												car2WidthPixels,
+												PLAYER_X_COORD,
+												PLAYER_Y_COORD,
+												invaderHeightPixels,
+												invaderWidthPixels
+											);
+											game_over = check_game_over(
+												CAR22_X_COORD,
+												CAR22_Y_COORD,
+												car2HeightPixels,
+												car2WidthPixels,
+												PLAYER_X_COORD,
+												PLAYER_Y_COORD,
+												invaderHeightPixels,
+												invaderWidthPixels
+											);
+							}
 
 							if(ALERT_PLAYER)
 							{
@@ -438,21 +492,31 @@ void hw3_main(void)
 								PLAYER_Y_COORD,          // Y Center Point
 								invaderHeightPixels,      // Image Vertical Height
 								invaderBitmaps,           // Image
-								LCD_COLOR_RED,            // Foreground Color
-								LCD_COLOR_BLACK           // Background Color
+								LCD_COLOR_BLACK,            // Foreground Color
+								LCD_COLOR_WHITE           // Background Color
 								);
 
 
 							game_over = check_game_over(
 													CAR11_X_COORD,
 													CAR11_Y_COORD,
-													space_shipHeightPixels,
-													space_shipWidthPixels,
+													car1HeightPixels,
+													car1WidthPixels,
 													PLAYER_X_COORD,
 													PLAYER_Y_COORD,
 													invaderHeightPixels,
 													invaderWidthPixels
 												);
+												game_over = check_game_over(
+												CAR12_X_COORD,
+												CAR12_Y_COORD,
+												car1HeightPixels,
+												car1WidthPixels,
+												PLAYER_X_COORD,
+												PLAYER_Y_COORD,
+												invaderHeightPixels,
+												invaderWidthPixels
+											);
 										}
 							
 							}
