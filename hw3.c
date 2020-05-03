@@ -27,6 +27,7 @@ volatile bool ALERT_CAR2 = false;
 volatile bool ALERT_TRUCK2 = false;
 volatile bool ALERT_PLAYER = true;
 volatile bool SWITCH_IMAGE = true;
+bool gameOverFirstTime = true;
 const uint8_t *virusBitMapVar;
 char STUDENT_NAME[] = "Eddie Estevez and Quinn Kleinschmidt";
 
@@ -180,42 +181,42 @@ void move_image(
 // screen.
 //*****************************************************************************
 
-Rectangle ship;				// Rectangle to help with boundary check of ship
-Rectangle invader;		// Rectangle to help with boundary check of invader
+Rectangle first;				// Rectangle to help with boundary check of first
+Rectangle second;		// Rectangle to help with boundary check of second
 
 bool check_game_over(
-        volatile uint16_t CAR11_X_COORD, 
-        volatile uint16_t CAR11_Y_COORD, 
-        uint8_t ship_height, 
-        uint8_t ship_width,
-        volatile uint16_t PLAYER_X_COORD, 
-        volatile uint16_t PLAYER_Y_COORD, 
-        uint8_t invader_height, 
-        uint8_t invader_width
+        volatile uint16_t firstObject_X_COORD, 
+        volatile uint16_t firstObject_Y_COORD, 
+        uint8_t first_height, 
+        uint8_t first_width,
+        volatile uint16_t secondObject_X_COORD, 
+        volatile uint16_t secondObject_Y_COORD, 
+        uint8_t second_height, 
+        uint8_t second_width
 )
 {
 	// Let's make some rectangles to help us figure out the boundaries
 	
-	// First, the space ship
-	ship.top = CAR11_Y_COORD - (ship_height/2);
-	ship.bottom = CAR11_Y_COORD + (ship_height/2);
-	ship.left = CAR11_X_COORD - (ship_width/2);
-	ship.right = CAR11_X_COORD + (ship_width/2);
+	// First, the space first
+	first.top = firstObject_Y_COORD - (first_height/2);
+	first.bottom = firstObject_Y_COORD + (first_height/2);
+	first.left = firstObject_X_COORD - (first_width/2);
+	first.right = firstObject_X_COORD + (first_width/2);
 	
-	// Second, the space invader
-	invader.top = PLAYER_Y_COORD - (invader_height/2);
-	invader.bottom = PLAYER_Y_COORD + (invader_height/2);
-	invader.left = PLAYER_X_COORD - (invader_width/2);
-	invader.right = PLAYER_X_COORD + (invader_width/2);
+	// Second, the space second
+	second.top = secondObject_Y_COORD - (second_height/2);
+	second.bottom = secondObject_Y_COORD + (second_height/2);
+	second.left = secondObject_X_COORD - (second_width/2);
+	second.right = secondObject_X_COORD + (second_width/2);
 	
 	// To check for an overlap, let's check conditions for when there is not an overlap
 	// If the conditions for no overlap are not met, that means there is an overlap
 	
 	// Let's check the y axis first
-	if (invader.top > ship.bottom || ship.top > invader.bottom)
+	if (second.top > first.bottom || first.top > second.bottom)
 		return false;
 	// Now the x axis
-	if (invader.left > ship.right || ship.left > invader.right)
+	if (second.left > first.right || first.left > second.right)
 		return false;
 	// If neither statemetns were true, than there is an overlap
 	return true;
@@ -270,6 +271,7 @@ void hw3_main(void)
 		
 		while(true)
 		{
+		if(game_over) game_state = 2;
 		switch(game_state) {
 			
 			//*****************************************************************************
@@ -331,7 +333,8 @@ void hw3_main(void)
 							LCD_COLOR_RED,         // Foreground Color
 							LCD_COLOR_WHITE        	// Background Color  
 					);
-							lcd_draw_image(
+			
+				lcd_draw_image(
 							218,            			// X Center Point
 							target2WidthPixels,   // Image Horizontal Width
 							25,           				// Y Center Point
@@ -391,7 +394,7 @@ void hw3_main(void)
 									LCD_COLOR_BLACK,          // Foreground Color
 									LCD_COLOR_GREEN          // Background Color
 								);
-											game_over = check_game_over(
+							game_over = check_game_over(
 												CAR12_X_COORD,
 												CAR12_Y_COORD,
 												car1HeightPixels,
@@ -487,6 +490,7 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
+								if(game_over) break;
 							}
 							if(ALERT_VIRUS2)
 							{
@@ -524,11 +528,11 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
+								if(game_over) break;
 							}
 
 							if(ALERT_PLAYER)
 							{
-								ALERT_PLAYER = false;
 								
 							lcd_draw_image(
 								PLAYER_X_COORD,          // X Center Point
@@ -551,6 +555,7 @@ void hw3_main(void)
 													invaderHeightPixels,
 													invaderWidthPixels
 												);
+												if(game_over) break;
 												game_over = check_game_over(
 												CAR12_X_COORD,
 												CAR12_Y_COORD,
@@ -561,6 +566,7 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
+											if(game_over) break;
 											game_over = check_game_over(
 												VIRUS1_X_COORD,
 												VIRUS1_Y_COORD,
@@ -571,6 +577,7 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
+											if(game_over) break;
 											game_over = check_game_over(
 												VIRUS2_X_COORD,
 												VIRUS2_Y_COORD,
@@ -581,6 +588,7 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
+											if(game_over) break;
 											game_over = check_game_over(
 												CAR21_X_COORD,
 												CAR21_Y_COORD,
@@ -591,6 +599,7 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
+											if(game_over) break;
 											game_over = check_game_over(
 												CAR22_X_COORD,
 												CAR22_Y_COORD,
@@ -601,12 +610,16 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
+											ALERT_PLAYER = false;
 										}
 							}
-							game_state = 2;
-							lcd_clear_screen(LCD_COLOR_BLACK);
 							break;
 			case 2:
+							if(gameOverFirstTime) {
+								lcd_clear_screen(LCD_COLOR_BLACK);
+								gameOverFirstTime = false;
+							}
+				
 							lcd_draw_image(
 							120,            									// X Center Point
 							gameOverWidthPixels,   // Image Horizontal Width
