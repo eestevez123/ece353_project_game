@@ -19,9 +19,12 @@ volatile uint16_t PLAYER_Y_COORD = 300;
 
 
 uint8_t virusFrameCounter = 0;
-volatile bool ALERT_VIRUS = false;
-volatile bool ALERT_CAR = false;
-volatile bool ALERT_TRUCK = false;
+volatile bool ALERT_VIRUS1 = false;
+volatile bool ALERT_CAR1 = false;
+volatile bool ALERT_TRUCK1 = false;
+volatile bool ALERT_VIRUS2 = false;
+volatile bool ALERT_CAR2 = false;
+volatile bool ALERT_TRUCK2 = false;
 volatile bool ALERT_PLAYER = true;
 volatile bool SWITCH_IMAGE = true;
 const uint8_t *virusBitMapVar;
@@ -352,9 +355,9 @@ void hw3_main(void)
 					while(!game_over)
 							{	
 								
-							if(ALERT_CAR)
+							if(ALERT_CAR1)
 							{
-								ALERT_CAR = false;
+								ALERT_CAR1 = false;
 								
 								lcd_draw_image(
 									CAR11_X_COORD,            // X Center Point
@@ -365,18 +368,7 @@ void hw3_main(void)
 									LCD_COLOR_BLACK,          // Foreground Color
 									LCD_COLOR_ORANGE          // Background Color
 								);
-								lcd_draw_image(
-									CAR12_X_COORD,            // X Center Point
-									car1WidthPixels,   // Image Horizontal Width
-									CAR12_Y_COORD,            // Y Center Point
-									car1HeightPixels,  // Image Vertical Height
-									car1Bitmaps,       // Image
-									LCD_COLOR_BLACK,          // Foreground Color
-									LCD_COLOR_GREEN          // Background Color
-								);
-
-
-							game_over = check_game_over(
+								game_over = check_game_over(
 												CAR11_X_COORD,
 												CAR11_Y_COORD,
 												car1HeightPixels,
@@ -386,6 +378,19 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
+							}
+							if(ALERT_CAR2)
+							{
+								ALERT_CAR2 = false;
+								lcd_draw_image(
+									CAR12_X_COORD,            // X Center Point
+									car1WidthPixels,   // Image Horizontal Width
+									CAR12_Y_COORD,            // Y Center Point
+									car1HeightPixels,  // Image Vertical Height
+									car1Bitmaps,       // Image
+									LCD_COLOR_BLACK,          // Foreground Color
+									LCD_COLOR_GREEN          // Background Color
+								);
 											game_over = check_game_over(
 												CAR12_X_COORD,
 												CAR12_Y_COORD,
@@ -397,9 +402,9 @@ void hw3_main(void)
 												invaderWidthPixels
 											);
 							}
-							if(ALERT_TRUCK)
+							if(ALERT_TRUCK1)
 							{
-								ALERT_TRUCK= false;
+								ALERT_TRUCK1= false;
 								
 								lcd_draw_image(
 									CAR21_X_COORD,            // X Center Point
@@ -410,18 +415,7 @@ void hw3_main(void)
 									LCD_COLOR_BLACK,          // Foreground Color
 									LCD_COLOR_BLUE          // Background Color
 								);
-								lcd_draw_image(
-									CAR22_X_COORD,            // X Center Point
-									car2WidthPixels,   // Image Horizontal Width
-									CAR22_Y_COORD,            // Y Center Point
-									car2HeightPixels,  // Image Vertical Height
-									car2Bitmaps,       // Image
-									LCD_COLOR_BLACK,          // Foreground Color
-									LCD_COLOR_YELLOW          // Background Color
-								);
-
-
-							game_over = check_game_over(
+								game_over = check_game_over(
 												CAR21_X_COORD,
 												CAR21_Y_COORD,
 												car2HeightPixels,
@@ -431,6 +425,19 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
+							}
+							if(ALERT_TRUCK2)
+							{
+								ALERT_TRUCK2= false;
+								lcd_draw_image(
+									CAR22_X_COORD,            // X Center Point
+									car2WidthPixels,   // Image Horizontal Width
+									CAR22_Y_COORD,            // Y Center Point
+									car2HeightPixels,  // Image Vertical Height
+									car2Bitmaps,       // Image
+									LCD_COLOR_BLACK,          // Foreground Color
+									LCD_COLOR_YELLOW          // Background Color
+								);
 											game_over = check_game_over(
 												CAR22_X_COORD,
 												CAR22_Y_COORD,
@@ -443,9 +450,9 @@ void hw3_main(void)
 											);
 							}
 							
-							if(ALERT_VIRUS)
+							if(ALERT_VIRUS1)
 							{
-								ALERT_VIRUS= false;
+								ALERT_VIRUS1= false;
 								
 								// switches out bitmaps every now and then
 								if(SWITCH_IMAGE) {
@@ -470,18 +477,7 @@ void hw3_main(void)
 									LCD_COLOR_BLUE,          	 // Foreground Color
 									LCD_COLOR_BLACK          	 // Background Color
 								);
-								lcd_draw_image(
-									VIRUS2_X_COORD,            // X Center Point
-									virus_detailWidthPixels,   // Image Horizontal Width
-									VIRUS2_Y_COORD,            // Y Center Point
-									virus_detailHeightPixels,  // Image Vertical Height
-									virusBitMapVar,       		 // Image
-									LCD_COLOR_YELLOW,          // Foreground Color
-									LCD_COLOR_BLACK       	   // Background Color
-								);
-
-
-							game_over = check_game_over(
+								game_over = check_game_over(
 												VIRUS1_X_COORD,
 												VIRUS1_Y_COORD,
 												virus_detailHeightPixels,
@@ -491,6 +487,33 @@ void hw3_main(void)
 												invaderHeightPixels,
 												invaderWidthPixels
 											);
+							}
+							if(ALERT_VIRUS2)
+							{
+								ALERT_VIRUS2 = false;
+								
+								// switches out bitmaps every now and then
+								if(SWITCH_IMAGE) {
+									virusBitMapVar = virus_detailBitmaps;
+								} else {
+								virusBitMapVar = virus_noDetailBitmaps;
+								}
+								
+								if(virusFrameCounter != 20) {
+								virusFrameCounter++;
+								} else {
+								SWITCH_IMAGE = !SWITCH_IMAGE;
+									virusFrameCounter = 0;
+								}
+								lcd_draw_image(
+									VIRUS2_X_COORD,            // X Center Point
+									virus_detailWidthPixels,   // Image Horizontal Width
+									VIRUS2_Y_COORD,            // Y Center Point
+									virus_detailHeightPixels,  // Image Vertical Height
+									virusBitMapVar,       		 // Image
+									LCD_COLOR_YELLOW,          // Foreground Color
+									LCD_COLOR_BLACK       	   // Background Color
+								);
 											game_over = check_game_over(
 												VIRUS2_X_COORD,
 												VIRUS2_Y_COORD,

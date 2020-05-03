@@ -65,7 +65,7 @@ void TIMER0A_Handler(void)
 		// can it move? Let's move it if we can
 		if(!touch_edge21) {
 			CAR21_X_COORD++;
-			ALERT_TRUCK = true;
+			ALERT_TRUCK1 = true;
 		} 
 		else{
 		lcd_draw_image(
@@ -81,7 +81,7 @@ void TIMER0A_Handler(void)
 	}
 		if(!touch_edge22) {
 			CAR22_X_COORD++;
-			ALERT_TRUCK = true;
+			ALERT_TRUCK2 = true;
 		} else{
 			lcd_draw_image(
 									CAR22_X_COORD - 1,            // X Center Point
@@ -144,7 +144,7 @@ void TIMER3A_Handler(void)
 		// can it move? Let's move it if we can
 		if(!touch_edge11) {
 			CAR11_X_COORD++;
-			ALERT_CAR = true;
+			ALERT_CAR1 = true;
 		} 
 		else{
 		lcd_draw_image(
@@ -160,7 +160,7 @@ void TIMER3A_Handler(void)
 	}
 		if(!touch_edge12) {
 			CAR12_X_COORD++;
-			ALERT_CAR = true;
+			ALERT_CAR2 = true;
 		} else{
 			lcd_draw_image(
 									CAR12_X_COORD - 1,            // X Center Point
@@ -208,7 +208,7 @@ void TIMER5A_Handler(void)
 			}else{
 				VIRUS1_X_COORD--;
 			}
-			ALERT_VIRUS = true;
+			ALERT_VIRUS1 = true;
 		} 
 		else{
 		if(VIRUS1_DIR == PS2_DIR_RIGHT){
@@ -223,7 +223,7 @@ void TIMER5A_Handler(void)
 			}else{
 				VIRUS2_X_COORD--;
 			}
-			ALERT_VIRUS = true;
+			ALERT_VIRUS2 = true;
 		} 
 		else{
 		if(VIRUS2_DIR == PS2_DIR_RIGHT){
