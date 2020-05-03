@@ -211,83 +211,142 @@ void init_hardware(void)
   gp_timer_config_32(TIMER4_BASE,TIMER_TAMR_TAMR_PERIOD, 50000, false, true);
 }
 
+uint8_t game_state;
 //*****************************************************************************
 // Main application for HW3
 //*****************************************************************************
 void hw3_main(void)
 {
     bool game_over = false;
+		bool game_pause = false;
+	
+	
     init_hardware();
-   
-			 lcd_draw_image(
-                          98,            // X Center Point
-                          target1WidthPixels,   // Image Horizontal Width
-                          25,            // Y Center Point
-                          target1HeightPixels,  // Image Vertical Height
-                          target1Bitmaps,       // Image
-                          LCD_COLOR_RED,          // Foreground Color
-                          LCD_COLOR_WHITE          // Background Color  
-				);
-						lcd_draw_image(
-                          218,            // X Center Point
-                          target2WidthPixels,   // Image Horizontal Width
-                          25,            // Y Center Point
-                          target2HeightPixels,  // Image Vertical Height
-                          target2Bitmaps,       // Image
-                          LCD_COLOR_RED,          // Foreground Color
-                          LCD_COLOR_WHITE          // Background Color  
-				);
-      while(!game_over)
-      {
-          if(ALERT_SPACE_SHIP)
-          {
-						lcd_draw_image(
-                          SHIP_X_COORD,            // X Center Point
-                          space_shipWidthPixels,   // Image Horizontal Width
-                          SHIP_Y_COORD,            // Y Center Point
-                          space_shipHeightPixels,  // Image Vertical Height
-                          space_shipBitmaps,       // Image
-                          LCD_COLOR_BLUE,          // Foreground Color
-                          LCD_COLOR_BLACK          // Background Color
-                        );
+		
+		// Have game start at the Welcome Screen
+		 game_state = 0x0;
+	
+		/* States for game_state
+					Welcome Screen = 0x0;
+					Game Screen = 0x1;
+		*/
+		
+		while(true)
+		{
+		switch(game_state) {
 			
-              
-            game_over = check_game_over(
-                                        SHIP_X_COORD,
-                                        SHIP_Y_COORD,
-                                        space_shipHeightPixels,
-                                        space_shipWidthPixels,
-                                        INVADER_X_COORD,
-                                        INVADER_Y_COORD,
-                                        invaderHeightPixels,
-                                        invaderWidthPixels
-                                    );
-          }
-          
-          if(ALERT_INVADER)
-          {
-					lcd_draw_image(
-                          INVADER_X_COORD,          // X Center Point
-                          invaderWidthPixels,       // Image Horizontal Width
-                          INVADER_Y_COORD,          // Y Center Point
-                          invaderHeightPixels,      // Image Vertical Height
-                          invaderBitmaps,           // Image
-                          LCD_COLOR_RED,            // Foreground Color
-                          LCD_COLOR_BLACK           // Background Color
-                        );
-					
-     
-             game_over = check_game_over(
-                                            SHIP_X_COORD,
-                                            SHIP_Y_COORD,
-                                            space_shipHeightPixels,
-                                            space_shipWidthPixels,
-                                            INVADER_X_COORD,
-                                            INVADER_Y_COORD,
-                                            invaderHeightPixels,
-                                            invaderWidthPixels
-                                        );
-          }
-          
-      }   
+			//*****************************************************************************
+			// Welcome Screen
+			//*****************************************************************************
+			case 0x0:
+				// Render out Target (for now for testing purposes)
+				lcd_draw_image(
+							98,            				// X Center Point
+							target1WidthPixels,   // Image Horizontal Width
+							25,            				// Y Center Point
+							target1HeightPixels,  // Image Vertical Height
+							target1Bitmaps,       // Image
+							LCD_COLOR_RED,         // Foreground Color
+							LCD_COLOR_WHITE        // Background Color  
+					);
+							lcd_draw_image(
+							218,            			// X Center Point
+							target2WidthPixels,   // Image Horizontal Width
+							25,           				// Y Center Point
+							target2HeightPixels,  // Image Vertical Height
+							target2Bitmaps,       // Image
+							LCD_COLOR_RED,        // Foreground Color
+							LCD_COLOR_WHITE       // Background Color  
+							);
+			break;
+			//*****************************************************************************
+			
+			
+			
+			//*****************************************************************************
+			// GameScreen
+			//*****************************************************************************
+			case 0x1:
+				
+			// Render out Target
+				lcd_draw_image(
+							98,            				// X Center Point
+							target1WidthPixels,   // Image Horizontal Width
+							25,            				// Y Center Point
+							target1HeightPixels,  // Image Vertical Height
+							target1Bitmaps,       // Image
+							LCD_COLOR_RED,         // Foreground Color
+							LCD_COLOR_WHITE        	// Background Color  
+					);
+							lcd_draw_image(
+							218,            			// X Center Point
+							target2WidthPixels,   // Image Horizontal Width
+							25,           				// Y Center Point
+							target2HeightPixels,  // Image Vertical Height
+							target2Bitmaps,       // Image
+							LCD_COLOR_RED,        // Foreground Color
+							LCD_COLOR_WHITE       // Background Color  
+							);
+									
+								
+							while((!game_over) | (!game_pause))
+							{
+							if(ALERT_SPACE_SHIP)
+							{
+								lcd_draw_image(
+								SHIP_X_COORD,            // X Center Point
+								space_shipWidthPixels,   // Image Horizontal Width
+								SHIP_Y_COORD,            // Y Center Point
+								space_shipHeightPixels,  // Image Vertical Height
+								space_shipBitmaps,       // Image
+								LCD_COLOR_BLUE,          // Foreground Color
+								LCD_COLOR_BLACK          // Background Color
+								);
+
+
+							game_over = check_game_over(
+												SHIP_X_COORD,
+												SHIP_Y_COORD,
+												space_shipHeightPixels,
+												space_shipWidthPixels,
+												INVADER_X_COORD,
+												INVADER_Y_COORD,
+												invaderHeightPixels,
+												invaderWidthPixels
+											);
+							}
+
+							if(ALERT_INVADER)
+							{
+							lcd_draw_image(
+								INVADER_X_COORD,          // X Center Point
+								invaderWidthPixels,       // Image Horizontal Width
+								INVADER_Y_COORD,          // Y Center Point
+								invaderHeightPixels,      // Image Vertical Height
+								invaderBitmaps,           // Image
+								LCD_COLOR_RED,            // Foreground Color
+								LCD_COLOR_BLACK           // Background Color
+								);
+
+
+							game_over = check_game_over(
+													SHIP_X_COORD,
+													SHIP_Y_COORD,
+													space_shipHeightPixels,
+													space_shipWidthPixels,
+													INVADER_X_COORD,
+													INVADER_Y_COORD,
+													invaderHeightPixels,
+													invaderWidthPixels
+												);
+										}
+							}
+			//*****************************************************************************
+			// Default Case
+			//*****************************************************************************
+			default: 						game_state = 0x0;
+													break;
+		}
+	}
+
 }
