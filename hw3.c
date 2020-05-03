@@ -293,15 +293,6 @@ void hw3_main(void)
 							if(ALERT_SPACE_SHIP)
 							{
 								lcd_draw_image(
-								SHIP_X_COORD - 2,            // X Center Point
-								car1WidthPixels,   // Image Horizontal Width
-								SHIP_Y_COORD,            // Y Center Point
-								car1HeightPixels,  // Image Vertical Height
-								car1Bitmaps,       // Image
-								LCD_COLOR_BLACK,          // Foreground Color
-								LCD_COLOR_BLACK          // Background Color
-								);
-								lcd_draw_image(
 								SHIP_X_COORD,            // X Center Point
 								car1WidthPixels,   // Image Horizontal Width
 								SHIP_Y_COORD,            // Y Center Point

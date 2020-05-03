@@ -73,7 +73,7 @@ bool touch_edge;
 void TIMER3A_Handler(void)
 {	
 	// Let's check if the ship has touched edge from where it is
-	touch_edge = contact_edge(PS2_DIR_RIGHT, SHIP_X_COORD, 200, car1HeightPixels, car1WidthPixels);
+	touch_edge = contact_edge(PS2_DIR_RIGHT, SHIP_X_COORD, SHIP_Y_COORD, car1HeightPixels, car1WidthPixels);
 	
 	// Let's check where move_count is at
 		// can it move? Let's move it if we can
@@ -82,16 +82,7 @@ void TIMER3A_Handler(void)
 			ALERT_SPACE_SHIP = true;
 		} 
 	// if we can't move since move_count is 0 or an edge was hit, let's give it a new direction and move count
-	if (touch_edge) {
-		lcd_draw_image(
-								SHIP_X_COORD - 1,            // X Center Point
-								car1WidthPixels,   // Image Horizontal Width
-								SHIP_Y_COORD,            // Y Center Point
-								car1HeightPixels,  // Image Vertical Height
-								car1Bitmaps,       // Image
-								LCD_COLOR_BLACK,          // Foreground Color
-								LCD_COLOR_BLACK          // Background Color
-								);
+	else{
 		SHIP_X_COORD = 0;
 	}
 	// Clear the interrupt
