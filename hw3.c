@@ -25,6 +25,7 @@ uint16_t userScore = 000;
 uint8_t virusFrameCounter = 0;
 volatile bool ALERT_VIRUS1 = false;
 volatile bool ALERT_CAR1 = false;
+volatile bool ALERT_PAUSE = false;
 volatile bool ALERT_TRUCK1 = false;
 volatile bool ALERT_VIRUS2 = false;
 volatile bool ALERT_CAR2 = false;
@@ -472,27 +473,6 @@ void renderUserScore(void) {
 				);
 }
 
-//*****************************************************************************
-// Initializes all of the peripherls used in HW3
-//*****************************************************************************
-void init_hardware(void)
-{
-  lcd_config_gpio();
-  lcd_config_screen();
-  lcd_clear_screen(LCD_COLOR_BLACK);
-  ps2_initialize();
-	
-	lp_io_init();
-  
-	gp_timer_config_32(TIMER0_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
-	gp_timer_config_32(TIMER1_BASE,TIMER_TAMR_TAMR_PERIOD, 20000000, false, true);
-  gp_timer_config_32(TIMER2_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
-  gp_timer_config_32(TIMER3_BASE,TIMER_TAMR_TAMR_PERIOD, 900000, false, true);
-  gp_timer_config_16(TIMER4_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
-	gp_timer_config_32(TIMER5_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
-	
-}
-
 uint8_t game_state;
 
 //*****************************************************************************
@@ -510,8 +490,7 @@ void hw3_main(void)
 		i2c_status_t x_status;
 		i2c_status_t y_status;
 	
-    init_hardware();
-	
+    initializeBoard();
 	
 		// get high score
 		getHighScore(&highScore);
@@ -528,11 +507,23 @@ void hw3_main(void)
 		{
 		switch(game_state) {
 			
+			
+			// Pause Game Logic
+			if(ALERT_PAUSE & (game_state == 1)) {
+				ALERT_PAUSE = false;
+			if(game_pause) {
+			game_pause = false;
+			printf("Game is Running\n");
+			} else if (!game_pause) {
+			game_pause = true;
+			printf("Game is Paused\n");
+			}
+			}
+			
 			//*****************************************************************************
 			// Welcome Screen
 			//*****************************************************************************
 			case 0:
-				
 			
 			touch_event = ft6x06_read_td_status();
 			
@@ -622,7 +613,7 @@ void hw3_main(void)
 				// Render out the rest of the score text
 				renderUserScore();
 								
-					while(!game_over)
+					while((!game_over) | (!game_pause))
 							{	
 								if(ALERT_RAISE_SCORE) {
 								ALERT_RAISE_SCORE = false;
@@ -934,7 +925,7 @@ void hw3_main(void)
 											ALERT_PLAYER = false;
 										}
 							}
-							break;
+			if(game_over) break;
 			case 2:
 							if(gameOverFirstTime) {
 								lcd_clear_screen(LCD_COLOR_BLACK);

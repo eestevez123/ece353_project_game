@@ -133,6 +133,7 @@ void TIMER2A_Handler(void)
 //*****************************************************************************
 bool touch_edge11;
 bool touch_edge12;
+	 char input[80];
 
 void TIMER3A_Handler(void)
 {	
@@ -157,6 +158,19 @@ void TIMER3A_Handler(void)
 			ERASE_CAR = true;
 		CAR12_X_COORD = car1WidthPixels/2;
 	}
+	// Spacebar for Pause Implimentation
+	memset(input, 0, 80);
+	scanf("%79[^\n]", input);
+	
+	
+	if(*input == ' ') {
+	ALERT_PAUSE = true;
+	}
+	
+	
+	
+	
+	
 	// Clear the interrupt
 	TIMER3->ICR |= TIMER_ICR_TATOCINT; 
 }

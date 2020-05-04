@@ -38,6 +38,7 @@
 #include "ps2.h"
 #include "launchpad_io.h"
 #include "eeprom.h"
+#include "io_expander.h"
 
 
 #include "project_images.h"

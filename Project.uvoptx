@@ -151,9 +151,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>394</LineNumber>
+          <LineNumber>395</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>3154</Address>
+          <Address>3346</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -162,7 +162,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>.\hw3.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\ece353_base_project\hw3.c\394</Expression>
+          <Expression>\\ece353_base_project\hw3.c\395</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -604,6 +604,18 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\peripherals\c\lcd_images.c</PathWithFileName>
       <FilenameWithoutPath>lcd_images.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>3</GroupNumber>
+      <FileNumber>30</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\peripherals\c\io_expander.c</PathWithFileName>
+      <FilenameWithoutPath>io_expander.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

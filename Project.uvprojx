@@ -999,6 +999,11 @@
               <FileType>1</FileType>
               <FilePath>.\peripherals\c\lcd_images.c</FilePath>
             </File>
+            <File>
+              <FileName>io_expander.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\peripherals\c\io_expander.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

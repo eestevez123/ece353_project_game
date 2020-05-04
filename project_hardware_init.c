@@ -27,9 +27,28 @@
 void initializeBoard(void)
 {
   DisableInterrupts();
-  gp_timer_config_32(TIMER0_BASE, TIMER_TAMR_TAMR_1_SHOT, 5000000, false, false);
   init_serial_debug(true, true);
 	eeprom_init();
   ft6x06_init();
   EnableInterrupts();
+	
+	lcd_config_gpio();
+  lcd_config_screen();
+  lcd_clear_screen(LCD_COLOR_BLACK);
+  ps2_initialize();
+	
+	lp_io_init();
+  
+	gp_timer_config_32(TIMER0_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
+	gp_timer_config_32(TIMER1_BASE,TIMER_TAMR_TAMR_PERIOD, 20000000, false, true);
+  gp_timer_config_32(TIMER2_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
+  gp_timer_config_32(TIMER3_BASE,TIMER_TAMR_TAMR_PERIOD, 900000, false, true);
+  gp_timer_config_16(TIMER4_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
+	gp_timer_config_32(TIMER5_BASE,TIMER_TAMR_TAMR_PERIOD, 1000000, false, true);
+	
+	
+	while(!io_expander_init()) {/* wait for it to be done */}
+	io_expander_write_reg(MCP23017_GPIOA_R, 0xFF);
+	setUpButtons();
+	
 }
