@@ -49,7 +49,7 @@ int
 main(void)
 {
   hw3_main();
-                    
+	
   // Reach infinite loop after the game is over.
   while(1){};
 }

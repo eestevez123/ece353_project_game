@@ -519,6 +519,10 @@ void hw3_main(void)
 					Game Screen = 0x1;
 		*/
 		
+	printf("*******************************************************************\n"); 
+	printf("Help Me Get To Target!\n");
+	printf("*******************************************************************\n");
+		
 		while(true)
 		{
 		switch(game_state) {
@@ -527,14 +531,17 @@ void hw3_main(void)
 			// Welcome Screen
 			//*****************************************************************************
 			case 0:
+				
 			
+			// code for detecting a touch
 			touch_event = ft6x06_read_td_status();
-			
 			if(touch_event == 1 | touch_event == 2) {
 				x = ft6x06_read_x();
 				y = ft6x06_read_y();
+				// switch to game screen
 				game_state = 1;
 				if(game_state) {
+					// clear screen
 				lcd_clear_screen(LCD_COLOR_BLACK);
 				break;
 				};
@@ -829,7 +836,7 @@ void hw3_main(void)
 									VIRUS1_Y_COORD,            // Y Center Point
 									virus_detailHeightPixels,  // Image Vertical Height
 									virusBitMapVar,       // Image
-									LCD_COLOR_BLUE,          	 // Foreground Color
+									LCD_COLOR_RED,          	 // Foreground Color
 									LCD_COLOR_BLACK          	 // Background Color
 								);
 								game_over = check_game_over(
@@ -870,7 +877,7 @@ void hw3_main(void)
 									VIRUS2_Y_COORD,            // Y Center Point
 									virus_detailHeightPixels,  // Image Vertical Height
 									virusBitMapVar,       		 // Image
-									LCD_COLOR_YELLOW,          // Foreground Color
+									LCD_COLOR_RED,          // Foreground Color
 									LCD_COLOR_BLACK       	   // Background Color
 								);
 											game_over = check_game_over(
