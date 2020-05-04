@@ -21,13 +21,14 @@
 // EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "main.h"
+#include "io_expander.h"
 
 //*****************************************************************************
 //*****************************************************************************
 void initializeBoard(void)
 {
   DisableInterrupts();
-  init_serial_debug(true, true);
+  init_serial_debug(false, true);
 	eeprom_init();
   ft6x06_init();
   EnableInterrupts();

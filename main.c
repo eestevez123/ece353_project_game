@@ -41,6 +41,23 @@ void EnableInterrupts(void)
   }
 }
 
+bool button_pressed(void){
+ uint8_t button;
+ static int debounce_io_down = 0;
+ button = io_expander_read_reg(MCP23017_GPIOB_R);
+ button &= 1<< DIR_BTN_DOWN_PIN;
+ if (button)
+        debounce_io_down = 0;
+    else
+        debounce_io_down++;
+
+    if(debounce_io_down == 2)
+        return true;
+    else
+        return false;
+}
+
+
 
 //*****************************************************************************
 //*****************************************************************************

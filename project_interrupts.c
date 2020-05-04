@@ -35,16 +35,16 @@ PS2_DIR_t ps2_get_direction(void)
 {
   if(PS2_X_DATA > ADC_HIGH_THRESHOLD){
 		// Joystick is pointed to the left
-		return PS2_DIR = PS2_DIR_LEFT;
+		return PS2_DIR = PS2_DIR_UP; 
 	}else if(PS2_X_DATA < ADC_LOW_THRESHOLD){
 		// Joystick is pointed to the right
-		return PS2_DIR = PS2_DIR_RIGHT;
+		return PS2_DIR = PS2_DIR_DOWN; 
 	}else if(PS2_Y_DATA > ADC_HIGH_THRESHOLD){
 		// Joystick is pointed up
-		return PS2_DIR = PS2_DIR_UP;
+		return PS2_DIR = PS2_DIR_LEFT;
 	}else if(PS2_Y_DATA < ADC_LOW_THRESHOLD){
-		// Joystick is pointed down
-		return PS2_DIR = PS2_DIR_DOWN;
+		// Joystick is pointed down 
+		return PS2_DIR = PS2_DIR_RIGHT; 
 	}else{
 		// Joystick is not being moved
 		return PS2_DIR = PS2_DIR_CENTER;
@@ -133,7 +133,7 @@ void TIMER2A_Handler(void)
 //*****************************************************************************
 bool touch_edge11;
 bool touch_edge12;
-	 char input[80];
+char input[80];
 
 void TIMER3A_Handler(void)
 {	
@@ -161,8 +161,6 @@ void TIMER3A_Handler(void)
 	// Spacebar for Pause Implimentation
 	memset(input, 0, 80);
 	scanf("%79[^\n]", input);
-	
-	
 	if(*input == ' ') {
 	ALERT_PAUSE = true;
 	}
@@ -180,11 +178,15 @@ void TIMER3A_Handler(void)
 //*****************************************************************************
 void TIMER4A_Handler(void)
 {	
-	// Clear the interrupt
-	TIMER4->ICR |= TIMER_ICR_TATOCINT; 
 	
 	// Trigger ADC Sample Sequencer 2 conversion
 	ADC0 ->PSSI |= ADC_PSSI_SS2;
+	
+	
+	// Clear the interrupt
+	TIMER4->ICR |= TIMER_ICR_TATOCINT; 
+	
+
 }
 //*****************************************************************************
 // TIMER3 ISR is used to determine when to move the spaceship
@@ -249,6 +251,11 @@ void ADC0SS2_Handler(void)
   ADC0->ISC |= ADC_ISC_IN2;
 }
 
+void GPIOF_Handler(void) {
+	printf("You pushed a button!\n");
+	
+	GPIOF->ICR |= GPIO_ICR_GPIO_M;
 
+}
 
 

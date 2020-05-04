@@ -18,6 +18,21 @@ volatile uint16_t PLAYER_X_COORD = 200;
 volatile uint16_t PLAYER_Y_COORD = 300;
 
 
+ 					  volatile uint16_t CAR11_X_PAUSE;
+					  volatile uint16_t CAR11_Y_PAUSE;
+					  volatile uint16_t CAR12_X_PAUSE;
+					  volatile uint16_t CAR12_Y_PAUSE;
+					  volatile uint16_t CAR21_X_PAUSE;
+					  volatile uint16_t CAR21_Y_PAUSE;
+					  volatile uint16_t CAR22_X_PAUSE;
+					  volatile uint16_t CAR22_Y_PAUSE;
+					  volatile uint16_t VIRUS1_X_PAUSE;
+					  volatile uint16_t VIRUS1_Y_PAUSE;
+					  volatile uint16_t VIRUS2_X_PAUSE;
+					  volatile uint16_t VIRUS2_Y_PAUSE;
+					  volatile uint16_t PLAYER_X_PAUSE;
+					  volatile uint16_t PLAYER_Y_PAUSE;
+
 uint16_t highScore = 000;
 uint16_t userScore = 000;
 
@@ -507,19 +522,6 @@ void hw3_main(void)
 		{
 		switch(game_state) {
 			
-			
-			// Pause Game Logic
-			if(ALERT_PAUSE & (game_state == 1)) {
-				ALERT_PAUSE = false;
-			if(game_pause) {
-			game_pause = false;
-			printf("Game is Running\n");
-			} else if (!game_pause) {
-			game_pause = true;
-			printf("Game is Paused\n");
-			}
-			}
-			
 			//*****************************************************************************
 			// Welcome Screen
 			//*****************************************************************************
@@ -613,8 +615,70 @@ void hw3_main(void)
 				// Render out the rest of the score text
 				renderUserScore();
 								
-					while((!game_over) | (!game_pause))
-							{	
+					while(!game_over)
+			{
+
+			// Pause Game Logic
+			if(ALERT_PAUSE) {
+				ALERT_PAUSE = false;
+			if(game_pause) {
+			game_pause = false;
+			printf("Game is Running\n");
+			} else if (!game_pause) {
+			game_pause = true;
+			printf("Game is Paused\n");
+			}
+			}
+			if(game_pause){
+					  CAR11_X_PAUSE = CAR11_X_COORD;
+					  CAR11_Y_PAUSE = CAR11_Y_COORD;
+					  CAR12_X_PAUSE = CAR12_X_COORD;
+					  CAR12_Y_PAUSE = CAR12_Y_COORD;
+					  CAR21_X_PAUSE = CAR21_X_COORD;
+					  CAR21_Y_PAUSE = CAR21_Y_COORD;
+					  CAR22_X_PAUSE = CAR22_X_COORD;
+					  CAR22_Y_PAUSE = CAR22_Y_COORD;
+					  VIRUS1_X_PAUSE = VIRUS1_X_COORD;
+					  VIRUS1_Y_PAUSE = VIRUS1_Y_COORD;
+					  VIRUS2_X_PAUSE = VIRUS2_X_COORD;
+					  VIRUS2_Y_PAUSE = VIRUS2_Y_COORD;
+					  PLAYER_X_PAUSE = PLAYER_X_COORD;
+					  PLAYER_Y_PAUSE = PLAYER_Y_COORD;
+					   
+			
+				
+				
+			}
+	    //keeps the characters in the same position
+			while(game_pause){
+				    CAR11_X_COORD = CAR11_X_PAUSE;
+					  CAR11_Y_COORD = CAR11_Y_PAUSE;
+					  CAR12_X_COORD = CAR12_X_PAUSE;
+					  CAR12_Y_COORD = CAR12_Y_PAUSE;
+					  CAR21_X_COORD = CAR21_X_PAUSE;
+					  CAR21_Y_COORD = CAR21_Y_PAUSE;
+					  CAR22_X_COORD = CAR22_X_PAUSE;
+					  CAR22_Y_COORD = CAR22_Y_PAUSE;
+					  VIRUS1_X_COORD = VIRUS1_X_PAUSE;
+					  VIRUS1_Y_COORD = VIRUS1_Y_PAUSE;
+					  VIRUS2_X_COORD = VIRUS2_X_PAUSE;
+					  VIRUS2_Y_COORD = VIRUS2_Y_PAUSE;
+					  PLAYER_X_COORD = PLAYER_X_PAUSE;
+					  PLAYER_Y_COORD = PLAYER_Y_PAUSE;
+				
+			if(ALERT_PAUSE) {
+				ALERT_PAUSE = false;
+			if(game_pause) {
+			game_pause = false;
+			printf("Game is Running\n");
+			} else if (!game_pause) {
+			game_pause = true;
+			printf("Game is Paused\n");
+			}
+			}
+		}
+
+			
 								if(ALERT_RAISE_SCORE) {
 								ALERT_RAISE_SCORE = false;
 								userScore++;
