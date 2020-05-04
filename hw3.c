@@ -48,6 +48,7 @@ volatile bool ALERT_TRUCK2 = false;
 volatile bool ALERT_PLAYER = true;
 volatile bool ALERT_RAISE_SCORE = false;
 volatile bool SWITCH_IMAGE = true;
+volatile bool ALERT_BUTTON = false;
 volatile bool ERASE_CAR = false;
 volatile bool ERASE_TRUCK = false;
 bool gameOverFirstTime = true;
@@ -679,7 +680,7 @@ void hw3_main(void)
 		}
 
 			
-								if(ALERT_RAISE_SCORE) {
+						if(ALERT_RAISE_SCORE) {
 								ALERT_RAISE_SCORE = false;
 								userScore++;
 								renderUserScore();

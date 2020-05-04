@@ -117,7 +117,8 @@ void TIMER2A_Handler(void)
 		ALERT_PLAYER = true;
 	}
 	
-	if(target_boundary) {
+	if(target_boundary && ALERT_BUTTON) {
+	ALERT_BUTTON = false;
 	lcd_draw_rectangle_centered(PLAYER_X_COORD, invaderWidthPixels, PLAYER_Y_COORD, invaderHeightPixels, LCD_COLOR_BLACK);
 	ALERT_RAISE_SCORE = true;
 	PLAYER_X_COORD = 200;
@@ -251,11 +252,25 @@ void ADC0SS2_Handler(void)
   ADC0->ISC |= ADC_ISC_IN2;
 }
 
+bool button_pressed(void){
+ uint8_t button;
+ static int debounce_io_down = 0;
+ button = io_expander_read_reg(MCP23017_GPIOB_R);
+ button &= 1<< DIR_BTN_DOWN_PIN;
+ if (button)
+        debounce_io_down = 0;
+    else
+        debounce_io_down++;
+		if(debounce_io_down == 1) return true;
+		return false;
+}
+
+
 void GPIOF_Handler(void) {
-	printf("You pushed a button!\n");
-	
+	ALERT_BUTTON = button_pressed();
 	GPIOF->ICR |= GPIO_ICR_GPIO_M;
 
 }
+
 
 

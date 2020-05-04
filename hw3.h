@@ -30,6 +30,7 @@ extern volatile uint16_t VIRUS2_X_COORD;
 extern volatile uint16_t VIRUS2_Y_COORD;
 extern volatile uint16_t PLAYER_X_COORD;
 extern volatile uint16_t PLAYER_Y_COORD;
+extern volatile bool ALERT_BUTTON;
 extern volatile bool ALERT_CAR1;
 extern volatile bool ALERT_VIRUS1;
 extern volatile bool ALERT_TRUCK1;
