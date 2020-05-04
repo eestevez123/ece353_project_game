@@ -62,6 +62,23 @@ bool contact_edge(
     uint8_t image_height, 
     uint8_t image_width
 );
+		
+		
+//*****************************************************************************
+// Determines if any part of the image would be off the screen if the image
+// is moved in the specified direction.
+//*****************************************************************************
+bool contact_boundary(
+    volatile PS2_DIR_t direction,
+        volatile uint16_t ship_x_coord, 
+        volatile uint16_t ship_y_coord, 
+        uint8_t ship_height, 
+        uint8_t ship_width,
+        volatile uint16_t invader_x_coord, 
+        volatile uint16_t invader_y_coord, 
+        uint8_t invader_height, 
+        uint8_t invader_width
+);
 
 //*****************************************************************************
 // Moves the image by one pixel in the provided direction.  The second and 

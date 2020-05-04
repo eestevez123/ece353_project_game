@@ -57,7 +57,7 @@ extern const uint8_t welcomeScreenTitleWidthPixels;
 extern const uint8_t welcomeScreenTitleHeightPixels;
 
 // Bitmap info for touchAnywhere
-extern const uint8_t touchAnywhereBitmaps[];
+extern const uint8_t touchAnywhereBitmap[];
 extern const uint8_t touchAnywhereWidthPixels;
 extern const uint8_t touchAnywhereHeightPixels;
 
@@ -131,6 +131,10 @@ extern const uint8_t nineBitmap[];
 extern const uint8_t nineWidthPixels;
 extern const uint8_t nineHeightPixels;
 
+// Bitmap info for score
+extern const uint8_t scoreBitmap[];
+extern const uint8_t scoreWidthPixels;
+extern const uint8_t scoreHeightPixels;
 
 
 #endif

@@ -18,6 +18,10 @@ volatile uint16_t PLAYER_X_COORD = 200;
 volatile uint16_t PLAYER_Y_COORD = 300;
 
 
+uint32_t highScore = 987;
+uint32_t userScore = 000;
+
+
 uint8_t virusFrameCounter = 0;
 volatile bool ALERT_VIRUS1 = false;
 volatile bool ALERT_CAR1 = false;
@@ -130,6 +134,85 @@ bool contact_edge(
 		}
 }
 
+// to be used for boundaries
+bool contact_boundary(
+    volatile PS2_DIR_t direction,			// direction in question
+		volatile uint16_t firstObject_X_COORD, 
+		volatile uint16_t firstObject_Y_COORD, 
+		uint8_t first_height, 
+		uint8_t first_width,
+		volatile uint16_t secondObject_X_COORD, 
+		volatile uint16_t secondObject_Y_COORD, 
+		uint8_t second_height, 
+		uint8_t second_width
+)
+{	
+		// So, where does it want to go?
+		switch(direction)
+		{
+			// True -> Edge has been hit, can't move anymore
+			// False -> Edge has not been hit, movement is possible
+			case PS2_DIR_UP:		// Trying go up?
+			// Let's look at the Y coordinate
+			if(check_game_over(firstObject_X_COORD,firstObject_Y_COORD,
+				first_height,first_width,PLAYER_X_COORD,PLAYER_Y_COORD-2,invaderHeightPixels,
+				invaderWidthPixels)) {
+				// nope, you can't go more up
+				return true;
+			} else {
+				// yeah, there's at least one pixel of room
+			return false;
+			}
+			case PS2_DIR_DOWN:	// Trying go down?
+			// Let's look at the Y coordinate
+						if(check_game_over(firstObject_X_COORD,firstObject_Y_COORD,
+				first_height,first_width,PLAYER_X_COORD,PLAYER_Y_COORD+2,invaderHeightPixels,
+			invaderWidthPixels)) {
+				// nope, you can't go more down
+				return true;
+			} else {
+				// yeah, there's at least one pixel of room
+			return false;
+			}
+			case PS2_DIR_LEFT:	// Trying to go left?
+			// Let's look at the X coordinate
+			// check if at the very left edge of the screen
+						if(check_game_over(firstObject_X_COORD-1,firstObject_Y_COORD,
+				first_height,first_width,PLAYER_X_COORD-2,PLAYER_Y_COORD,invaderHeightPixels,
+			invaderWidthPixels)) {
+				// nope, you can't go more left
+				return true;
+			} else {
+				// yeah, there's at least one pixel of room
+			return false;
+			}
+			case PS2_DIR_RIGHT:	// Trying to go right?
+			// Let's look at the X coordinate
+			// check if at the very right edge of the screen
+			if(check_game_over(firstObject_X_COORD+1,firstObject_Y_COORD,
+				first_height,first_width,PLAYER_X_COORD+2,PLAYER_Y_COORD,invaderHeightPixels,
+			invaderWidthPixels)){
+				// nope, you can't go more right
+				return true;
+			} else {
+				// yeah, there's at least one pixel of room
+			return false;
+			}
+			case PS2_DIR_CENTER:
+			// You don't need to move anywhere if you're already at the center
+			// Technically, yes, you can stay where you are, so TRUE
+			return false;
+			case PS2_DIR_INIT:
+			// Not a direction, hopefully this value is not sent
+			return false;
+			default:
+			// No valid input was given, something went wrong if it reaches
+			// the default case
+			return false;
+		}
+}
+
+
 //*****************************************************************************
 // Moves the image by one pixel in the provided direction.  The second and 
 // third parameter should modify the current location of the image (pass by
@@ -186,7 +269,7 @@ void move_image(
 Rectangle first;				// Rectangle to help with boundary check of first
 Rectangle second;		// Rectangle to help with boundary check of second
 
-bool check_game_over(
+bool check_game_over (
         volatile uint16_t firstObject_X_COORD, 
         volatile uint16_t firstObject_Y_COORD, 
         uint8_t first_height, 
@@ -222,6 +305,133 @@ bool check_game_over(
 		return false;
 	// If neither statemetns were true, than there is an overlap
 	return true;
+}
+
+
+//*****************************************************************************
+// Renders out the high score from the high score variable
+//*****************************************************************************
+const uint8_t* getTheRightNumberHelper(uint8_t number) {
+switch(number) {
+	case 0: return zeroBitmap;
+	break;
+	case 1: return oneBitmap;
+	break;
+	case 2: return twoBitmap;
+	break;
+	case 3: return threeBitmap;
+	break;
+	case 4: return fourBitmap;
+	break;
+	case 5: return fiveBitmap;
+	break;
+	case 6: return sixBitmap;
+	break;
+	case 7: return sevenBitmap;
+	break;
+	case 8: return eightBitmap;
+	break;
+	case 9: return nineBitmap;
+	break;
+		default: return zeroBitmap;
+	break;
+
+
+}
+}
+
+//*****************************************************************************
+// Renders out the high score from the high score variable
+//*****************************************************************************
+const uint8_t* getTheRightNumber(uint32_t number, uint8_t pos) { 
+	uint8_t numberInThatPlace;
+			switch(pos) {
+				case 0:
+							numberInThatPlace = number % 10;
+				break;
+				case 1:
+							numberInThatPlace = ((number % 100) - ((number % 100) % 10))/10;
+				break;
+				case 2:
+						numberInThatPlace = (number - (number % 100))/100;
+				break;
+				default:
+						numberInThatPlace = 0;
+					break;
+			}
+			return getTheRightNumberHelper(numberInThatPlace);
+}
+
+
+
+//*****************************************************************************
+// Renders out the high score from the high score variable
+//*****************************************************************************
+void renderHighScore(void) {
+	
+				// Render out high score text
+							lcd_draw_image(
+							127,            									// X Center Point
+							zeroWidthPixels,   // Image Horizontal Width
+							300,            									// Y Center Point
+							zeroHeightPixels, // Image Vertical Height
+							getTheRightNumber(highScore, 2),      // Image
+							LCD_COLOR_WHITE,         				// Foreground Color
+							LCD_COLOR_BLACK        					// Background Color  
+				);
+								lcd_draw_image(
+							149,            									// X Center Point
+							zeroWidthPixels,   // Image Horizontal Width
+							300,            									// Y Center Point
+							zeroHeightPixels, // Image Vertical Height
+							getTheRightNumber(highScore, 1),      // Image
+							LCD_COLOR_WHITE,         				// Foreground Color
+							LCD_COLOR_BLACK        					// Background Color  
+				);
+											lcd_draw_image(
+							171,            									// X Center Point
+							zeroWidthPixels,   // Image Horizontal Width
+							300,            									// Y Center Point
+							zeroHeightPixels, // Image Vertical Height
+							getTheRightNumber(highScore, 0),      // Image
+							LCD_COLOR_WHITE,         				// Foreground Color
+							LCD_COLOR_BLACK        					// Background Color  
+				);
+}
+
+//*****************************************************************************
+// Renders out the user score from the user score variable onto the game screen
+//*****************************************************************************
+void renderUserScore(void) {
+	
+				// Render out high score text
+							lcd_draw_image(
+							94,            									// X Center Point
+							zeroWidthPixels,   // Image Horizontal Width
+							300,            									// Y Center Point
+							zeroHeightPixels, // Image Vertical Height
+							getTheRightNumber(userScore, 2),      // Image
+							LCD_COLOR_WHITE,         				// Foreground Color
+							LCD_COLOR_BLACK        					// Background Color  
+				);
+								lcd_draw_image(
+							116,            									// X Center Point
+							zeroWidthPixels,   // Image Horizontal Width
+							300,            									// Y Center Point
+							zeroHeightPixels, // Image Vertical Height
+							getTheRightNumber(userScore, 1),      // Image
+							LCD_COLOR_WHITE,         				// Foreground Color
+							LCD_COLOR_BLACK        					// Background Color  
+				);
+											lcd_draw_image(
+							138,            									// X Center Point
+							zeroWidthPixels,   // Image Horizontal Width
+							300,            									// Y Center Point
+							zeroHeightPixels, // Image Vertical Height
+							getTheRightNumber(userScore, 0),      // Image
+							LCD_COLOR_WHITE,         				// Foreground Color
+							LCD_COLOR_BLACK        					// Background Color  
+				);
 }
 
 //*****************************************************************************
@@ -307,12 +517,23 @@ void hw3_main(void)
 							lcd_draw_image(
 							120,            									// X Center Point
 							touchAnywhereWidthPixels,   // Image Horizontal Width
-							240,            									// Y Center Point
+							200,            									// Y Center Point
 							touchAnywhereHeightPixels, // Image Vertical Height
-							touchAnywhereBitmaps,      // Image
+							touchAnywhereBitmap,      // Image
 							LCD_COLOR_WHITE,         				// Foreground Color
 							LCD_COLOR_BLACK        					// Background Color  
 				);
+				// Render out high score text
+							lcd_draw_image(
+							59,            									// X Center Point
+							highScoreWidthPixels,   // Image Horizontal Width
+							300,            									// Y Center Point
+							highScoreHeightPixels, // Image Vertical Height
+							highScoreBitmaps,      // Image
+							LCD_COLOR_WHITE,         				// Foreground Color
+							LCD_COLOR_BLACK        					// Background Color  
+				);
+				renderHighScore();
 			
 			
 			break;
@@ -345,16 +566,18 @@ void hw3_main(void)
 							LCD_COLOR_WHITE       // Background Color  
 							);
 			
-			// Render out high score text
+			// Render out score text
 							lcd_draw_image(
-							59,            									// X Center Point
-							highScoreWidthPixels,   // Image Horizontal Width
+							42,            									// X Center Point
+							scoreWidthPixels,   // Image Horizontal Width
 							300,            									// Y Center Point
-							highScoreHeightPixels, // Image Vertical Height
-							highScoreBitmaps,      // Image
+							scoreHeightPixels, // Image Vertical Height
+							scoreBitmap,      // Image
 							LCD_COLOR_WHITE,         				// Foreground Color
 							LCD_COLOR_BLACK        					// Background Color  
 				);
+				// Render out the rest of the score text
+				renderUserScore();
 								
 					while(!game_over)
 							{	

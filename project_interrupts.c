@@ -21,6 +21,7 @@
 // EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "main.h"
+#include "hw3.h"
 #include "project_interrupts.h"
 
 static volatile uint16_t PS2_X_DATA;
@@ -29,7 +30,6 @@ static volatile PS2_DIR_t PS2_DIR = PS2_DIR_CENTER;
 static volatile PS2_DIR_t VIRUS1_DIR = PS2_DIR_RIGHT;
 static volatile PS2_DIR_t VIRUS2_DIR = PS2_DIR_LEFT;
 static volatile uint16_t move_count = 0;
-
 
 PS2_DIR_t ps2_get_direction(void)
 {
@@ -50,6 +50,8 @@ PS2_DIR_t ps2_get_direction(void)
 		return PS2_DIR = PS2_DIR_CENTER;
 	}
 }
+
+
 //*****************************************************************************
 // TIMER0 ISR is used to move car2
 //*****************************************************************************
@@ -100,10 +102,16 @@ lp_io_set_pin(RED_PIN);
 //*****************************************************************************
 // TIMER2 ISR is used to determine when to move the Invader
 //*****************************************************************************
+bool target_boundary;
+bool user_boundary;
+
 void TIMER2A_Handler(void)
-{	
+{
+	 target_boundary = contact_boundary(PS2_DIR,120,25,50,240,PLAYER_X_COORD,PLAYER_Y_COORD,invaderHeightPixels,invaderWidthPixels);
+	 user_boundary = 	contact_boundary(PS2_DIR ,75,300,30,149,PLAYER_X_COORD,PLAYER_Y_COORD,invaderHeightPixels,invaderWidthPixels);
+	
 	// let's check if it's hitting an edge
-	if(!contact_edge(PS2_DIR, PLAYER_X_COORD, PLAYER_Y_COORD, invaderHeightPixels, invaderWidthPixels)){
+	if((!contact_edge(PS2_DIR, PLAYER_X_COORD, PLAYER_Y_COORD, invaderHeightPixels, invaderWidthPixels))&(!target_boundary)&(!user_boundary)){
 		// no edge is being hit, it's safe to move in the direction
     move_image(PS2_DIR, &PLAYER_X_COORD, &PLAYER_Y_COORD, invaderHeightPixels, invaderWidthPixels);
 		ALERT_PLAYER = true;
@@ -218,5 +226,7 @@ void ADC0SS2_Handler(void)
 	  // Clear the interrupt
   ADC0->ISC |= ADC_ISC_IN2;
 }
+
+
 
 
