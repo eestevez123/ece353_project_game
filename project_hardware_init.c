@@ -29,6 +29,7 @@ void initializeBoard(void)
   DisableInterrupts();
   gp_timer_config_32(TIMER0_BASE, TIMER_TAMR_TAMR_1_SHOT, 5000000, false, false);
   init_serial_debug(true, true);
+	eeprom_init();
   ft6x06_init();
   EnableInterrupts();
 }

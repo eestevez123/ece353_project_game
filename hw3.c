@@ -18,8 +18,8 @@ volatile uint16_t PLAYER_X_COORD = 200;
 volatile uint16_t PLAYER_Y_COORD = 300;
 
 
-uint32_t highScore = 000;
-uint32_t userScore = 000;
+uint16_t highScore = 000;
+uint16_t userScore = 000;
 
 
 uint8_t virusFrameCounter = 0;
@@ -366,6 +366,43 @@ const uint8_t* getTheRightNumber(uint32_t number, uint8_t pos) {
 
 
 //*****************************************************************************
+// Write the high score into eeprom
+//*****************************************************************************
+void writeHighScore(uint16_t highScoreForWrite) {
+uint16_t addr; 
+uint8_t highscore_byte; 
+i2c_status_t i2c_status;
+    
+ for(addr = 0; addr <(4); addr++){    
+                                  
+	 highscore_byte = highScoreForWrite >> (8 *(3 - (addr)));                                    
+	 i2c_status = eeprom_byte_write(I2C1_BASE,addr, highscore_byte);
+																					
+	 if (i2c_status != I2C_OK) printf("ERROR: writeHighScore failed, %d\n\r", i2c_status);
+  }
+}
+
+//*****************************************************************************
+// Read the high score from eeprom
+//*****************************************************************************
+void getHighScore(uint16_t* highScore) {
+    uint16_t addr; 
+    uint8_t highScoreByte, username_byte; 
+
+    i2c_status_t i2c_status;
+    
+    for(addr = 0; addr < 4; addr++){    
+         //reads high_score, receives MSB first                 
+       i2c_status = eeprom_byte_read(I2C1_BASE,addr, &highScoreByte);                        
+       if (i2c_status != I2C_OK) printf("ERROR: getHighScore failed, %d\n\r", i2c_status);
+       *highScore = ((*highScore)<<8) | highScoreByte;            
+     }
+}
+
+
+
+
+//*****************************************************************************
 // Renders out the high score from the high score variable
 //*****************************************************************************
 void renderHighScore(void) {
@@ -463,6 +500,7 @@ uint8_t game_state;
 //*****************************************************************************
 void hw3_main(void)
 {
+		char input[80];
     bool game_over = false;
 		bool game_pause = false;
 	
@@ -473,7 +511,11 @@ void hw3_main(void)
 		i2c_status_t y_status;
 	
     init_hardware();
-		
+	
+	
+		// get high score
+		getHighScore(&highScore);
+	
 		// Have game start at the Welcome Screen
 		 game_state = 0;
 	
@@ -908,7 +950,9 @@ void hw3_main(void)
 							LCD_COLOR_WHITE,         				// Foreground Color
 							LCD_COLOR_BLACK        					// Background Color  
 				);
-						
+							
+				// write the high score into eeprom
+					if(userScore > highScore) writeHighScore(userScore);
 			break;
 			//*****************************************************************************
 			// Default Case

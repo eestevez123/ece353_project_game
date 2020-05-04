@@ -150,11 +150,11 @@ int fgetc(FILE* stream)
    
    if ( Rx_Interrupts_Enabled)
    {
-    c = serial_debug_rx(&UART0_Rx_Buffer, true);
+    c = serial_debug_rx(&UART0_Rx_Buffer, false);
    }
    else
    {
-     c = uart_rx_poll(UART0_BASE,true);
+     c = uart_rx_poll(UART0_BASE,false);
    }
 
    if (c == '\r')

@@ -37,6 +37,7 @@
 #include "timers.h"
 #include "ps2.h"
 #include "launchpad_io.h"
+#include "eeprom.h"
 
 
 #include "project_images.h"
