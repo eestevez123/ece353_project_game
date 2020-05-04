@@ -240,3 +240,92 @@ bool gp_timer_config_32(uint32_t base_addr, uint32_t mode, uint32_t time_count, 
   
   return true;  
 }
+
+//*****************************************************************************
+// Configure a general purpose timer to be a 16-bit timer.  
+//
+// Paramters
+//  base_address          The base address of a general purpose timer
+//
+//  mode                  bit mask for Periodic, One-Shot, or Capture
+//
+//  count_up              When true, the timer counts up.  When false, it counts
+//                        down
+//
+//  enable_interrupts     When set to true, the timer generates and interrupt
+//                        when the timer expires.  When set to false, the timer
+//                        does not generate interrupts.
+//
+//The function returns true if the base_addr is a valid general purpose timer
+//*****************************************************************************
+bool gp_timer_config_16(uint32_t base_addr, uint32_t mode, uint32_t time_count, bool count_up, bool enable_interrupts)
+{
+  uint32_t timer_rcgc_mask;
+  uint32_t timer_pr_mask;
+  TIMER0_Type *gp_timer;
+  
+  // Verify the base address.
+  if ( ! verify_base_addr(base_addr) )
+  {
+    return false;
+  }
+  
+  // get the correct RCGC and PR masks for the base address
+  get_clock_masks(base_addr, &timer_rcgc_mask, &timer_pr_mask);
+  
+  // Turn on the clock for the timer
+  SYSCTL->RCGCTIMER |= timer_rcgc_mask;
+
+  // Wait for the timer to turn on
+  while( (SYSCTL->PRTIMER & timer_pr_mask) == 0) {};
+  
+  //*********************    
+  // ADD CODE
+  //*********************
+
+  // Type cast the base address to a TIMER0_Type struct
+  gp_timer = (TIMER0_Type *)base_addr;
+    
+  // Stop the timers
+  gp_timer->CTL &= ~( TIMER_CTL_TAEN | TIMER_CTL_TBEN);
+  
+  // Set the timer to be a 32-bit timer
+  // gp_timer->CFG = TIMER_CFG_32_BIT_TIMER;
+	gp_timer->CFG = TIMER_CFG_16_BIT;
+		
+  // Clear the timer mode 
+  gp_timer->TAMR &= ~TIMER_TAMR_TAMR_M;
+  
+  // Set the mode
+  gp_timer->TAMR |= mode;
+    
+    // Set the timer direction.  count_up: 0 for down, 1 for up.
+  gp_timer->TAMR &= ~TIMER_TAMR_TACDIR;
+  
+  if( count_up )
+  {
+    // Set the direction bit
+    gp_timer->TAMR |= TIMER_TAMR_TACDIR;
+  }
+ 
+  gp_timer->TAILR = time_count;
+  
+  if( enable_interrupts )
+  {
+    // Clear the status flag so the timer is ready the next time it is run. 
+    gp_timer->ICR|= TIMER_ICR_TATOCINT;
+  	gp_timer->IMR |= TIMER_IMR_TATOIM;
+    NVIC_SetPriority(timer_get_irq_num(base_addr),1);
+    NVIC_EnableIRQ(timer_get_irq_num(base_addr));
+      
+  }
+  else
+  {
+  	gp_timer->IMR &= ~TIMER_IMR_TATOIM;
+  }
+    
+  // Turn the timer on
+  gp_timer->CTL      |=   TIMER_CTL_TAEN ;
+  
+  return true;  
+}

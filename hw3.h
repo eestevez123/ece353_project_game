@@ -7,10 +7,10 @@
 #include <stdlib.h>
 
 #include "TM4C123.h"
+#include "timers.h"
 #include "gpio_port.h"
 #include "ps2.h"
 #include "lcd.h"
-#include "timers.h"
 #include "project_images.h"
 #include "i2c.h"
 #include "ft6x06.h"
