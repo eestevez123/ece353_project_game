@@ -71,7 +71,7 @@ void TIMER0A_Handler(void)
 		} 
 		else{
 			ERASE_TRUCK = true;
-		CAR21_X_COORD = car2WidthPixels/2;
+			CAR21_X_COORD = car2WidthPixels/2;
 	}
 		if(!touch_edge22) {
 			CAR22_X_COORD++;
@@ -115,6 +115,14 @@ void TIMER2A_Handler(void)
 		// no edge is being hit, it's safe to move in the direction
     move_image(PS2_DIR, &PLAYER_X_COORD, &PLAYER_Y_COORD, invaderHeightPixels, invaderWidthPixels);
 		ALERT_PLAYER = true;
+	}
+	
+	if(target_boundary) {
+	lcd_draw_rectangle_centered(PLAYER_X_COORD, invaderWidthPixels, PLAYER_Y_COORD, invaderHeightPixels, LCD_COLOR_BLACK);
+	ALERT_RAISE_SCORE = true;
+	PLAYER_X_COORD = 200;
+	PLAYER_Y_COORD = 300;
+	
 	}
 	// Clear the interrupt
 	TIMER2->ICR |= TIMER_ICR_TATOCINT;

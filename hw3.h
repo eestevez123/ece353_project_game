@@ -39,6 +39,7 @@ extern volatile bool ALERT_TRUCK2;
 extern volatile bool ALERT_PLAYER;
 extern volatile bool ERASE_CAR;
 extern volatile bool ERASE_TRUCK;
+extern volatile bool ALERT_RAISE_SCORE;
 extern char STUDENT_NAME[];
 
 typedef enum{

@@ -18,7 +18,7 @@ volatile uint16_t PLAYER_X_COORD = 200;
 volatile uint16_t PLAYER_Y_COORD = 300;
 
 
-uint32_t highScore = 987;
+uint32_t highScore = 000;
 uint32_t userScore = 000;
 
 
@@ -30,6 +30,7 @@ volatile bool ALERT_VIRUS2 = false;
 volatile bool ALERT_CAR2 = false;
 volatile bool ALERT_TRUCK2 = false;
 volatile bool ALERT_PLAYER = true;
+volatile bool ALERT_RAISE_SCORE = false;
 volatile bool SWITCH_IMAGE = true;
 volatile bool ERASE_CAR = false;
 volatile bool ERASE_TRUCK = false;
@@ -581,6 +582,12 @@ void hw3_main(void)
 								
 					while(!game_over)
 							{	
+								if(ALERT_RAISE_SCORE) {
+								ALERT_RAISE_SCORE = false;
+								userScore++;
+								renderUserScore();
+								}
+								
 								if(ERASE_CAR){
 									ERASE_CAR = false;
 									lcd_draw_rectangle_centered(222, 36, 240, 20, LCD_COLOR_BLACK);
